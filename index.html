@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="prof. Elena Drăgan">
+<meta name="description" content="Resursă educațională deschisă pentru clasa a X-a — Python Core: colecții avansate, regex, funcții, OOP, excepții, proiect aplicativ. Volumul 2 din seria Python Education.">
+<meta name="theme-color" content="#2563eb">
+<title>Python Core — Programare intermediară în Python · clasa a X-a</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjM2I4MmY2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMWQ0ZWQ4Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9InVybCgjZykiLz48dGV4dCB4PSIzMiIgeT0iNDYiIGZvbnQtc2l6ZT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPvCfkI08L3RleHQ+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --accent:#2563eb; --accent-strong:#1d4ed8; --accent-deep:#1e40af;
+  --accent-soft:rgba(37,99,235,.10); --accent-border:rgba(37,99,235,.28);
+  --ok:#16a34a; --ok-soft:rgba(22,163,74,.12);
+  --warn:#d97706; --warn-soft:rgba(217,119,6,.12);
+  --err:#dc2626; --err-soft:rgba(220,38,38,.10);
+  --bg:#f5f7fc; --surface:#ffffff; --surface-2:#eef2fa;
+  --text:#0f172a; --muted:#46556e; --border:#dde4f0;
+  --code-bg:#0f1a30; --code-text:#dbe7ff;
+  --shadow:0 10px 30px rgba(15,23,42,.07);
+  --radius:14px;
+}
+html[data-theme="dark"]{
+  --bg:#0a1020; --surface:#101a30; --surface-2:#0d1628;
+  --text:#e6ecf8; --muted:#9fb0ca; --border:#1f2c47;
+  --accent-soft:rgba(96,150,255,.14); --accent-border:rgba(96,150,255,.35);
+  --code-bg:#0a1326; --code-text:#d6e4ff;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16.5px}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;line-height:1.25;letter-spacing:-.01em}
+h1{font-size:clamp(1.9rem,4.5vw,3rem);margin:.3em 0 .4em}
+h2{font-size:1.45rem;margin:2.2em 0 .7em;padding-bottom:.35em;border-bottom:2px solid var(--accent-soft)}
+h3{font-size:1.12rem;margin:1.6em 0 .5em}
+p{margin:.7em 0}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:'JetBrains Mono',monospace;font-size:.86em;background:var(--accent-soft);padding:.12em .42em;border-radius:6px;color:var(--accent-deep)}
+html[data-theme="dark"] code{color:#9ec1ff}
+ul,ol{padding-left:1.4em}
+li{margin:.35em 0}
+table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.94rem;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+th{background:var(--accent);color:#fff;text-align:left;padding:.7em .9em;font-family:'Sora',sans-serif;font-weight:600;font-size:.88rem}
+td{padding:.65em .9em;border-top:1px solid var(--border);vertical-align:top}
+tr:nth-child(even) td{background:var(--surface-2)}
+.table-wrap{overflow-x:auto;border-radius:12px}
+.table-wrap table{margin:0}
+pre{background:var(--code-bg);color:var(--code-text);border-radius:12px;padding:2.4em 1.1em 1.1em;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.85rem;line-height:1.6;position:relative;margin:1.2em 0;box-shadow:var(--shadow)}
+pre::before{content:"";position:absolute;top:.85em;left:1.1em;width:.7em;height:.7em;border-radius:50%;background:#ff5f57;box-shadow:1.15em 0 0 #febc2e,2.3em 0 0 #28c840}
+pre[data-label]::after{content:attr(data-label);position:absolute;top:.62em;right:1em;font-size:.68rem;color:#7b93c4;letter-spacing:.08em;text-transform:uppercase;font-family:'Sora',sans-serif}
+pre code{background:none;color:inherit;padding:0;font-size:1em}
+.cm{color:#7b93c4;font-style:italic}
+.kw{color:#82b4ff;font-weight:600}
+.st{color:#9be58f}
+.nb{color:#ffd479}
+.nu{color:#ff9e9e}
+
+/* ===== layout ===== */
+.wrap{max-width:980px;margin:0 auto;padding:0 1.2rem}
+header.site{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;gap:.4rem;height:62px}
+.brand{display:flex;align-items:center;gap:.55rem;font-family:'Sora',sans-serif;font-weight:700;font-size:1.02rem;color:var(--text);white-space:nowrap}
+.brand .logo{font-size:1.25rem;background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:10px;padding:.18em .35em;letter-spacing:-.12em}
+.nav-spacer{flex:1}
+.nav a.nlink,.nav button.nlink{font-family:'Sora',sans-serif;font-size:.84rem;font-weight:600;color:var(--muted);padding:.5em .75em;border-radius:9px;background:none;border:none;cursor:pointer}
+.nav a.nlink:hover,.nav button.nlink:hover{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+.dropdown{position:relative}
+.dropdown-menu{display:none;position:absolute;right:0;top:110%;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);min-width:300px;padding:.45rem;max-height:70vh;overflow:auto}
+.dropdown.open .dropdown-menu{display:block}
+.dropdown-menu a{display:flex;gap:.55em;align-items:baseline;padding:.5em .7em;border-radius:8px;color:var(--text);font-size:.87rem}
+.dropdown-menu a:hover{background:var(--accent-soft);text-decoration:none}
+.dropdown-menu a b{color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:.78rem;min-width:2.2em}
+.dropdown-menu a .done{margin-left:auto;color:var(--ok);font-weight:700;visibility:hidden}
+.dropdown-menu a .done.show{visibility:visible}
+#themeBtn{font-size:1.05rem;background:none;border:1px solid var(--border);border-radius:9px;width:38px;height:38px;cursor:pointer;color:var(--text)}
+#themeBtn:hover{border-color:var(--accent)}
+
+/* ===== pages ===== */
+section.page{display:none;padding:1.8rem 0 4rem;animation:fadeIn .35s ease}
+section.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){section.page{animation:none}html{scroll-behavior:auto}}
+.eyebrow{font-family:'Sora',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:.6em}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--accent);border-radius:2px}
+.lead{font-size:1.08rem;color:var(--muted);max-width:64ch}
+
+/* hero */
+.hero{padding:3.2rem 0 1rem;position:relative}
+.hero h1 .accent{color:var(--accent)}
+.badges{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.1rem 0 1.4rem}
+.badge{font-family:'Sora',sans-serif;font-size:.78rem;font-weight:600;padding:.4em .85em;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--muted)}
+.badge.blue{background:var(--accent-soft);border-color:var(--accent-border);color:var(--accent-deep)}
+html[data-theme="dark"] .badge.blue{color:#9ec1ff}
+.btn{display:inline-flex;align-items:center;gap:.5em;font-family:'Sora',sans-serif;font-weight:600;font-size:.94rem;padding:.72em 1.4em;border-radius:11px;border:1px solid transparent;cursor:pointer;transition:transform .12s ease}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 18px rgba(37,99,235,.35)}
+.btn-primary:hover{background:var(--accent-strong)}
+.btn-ghost{background:var(--surface);color:var(--text);border-color:var(--border)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* progress */
+.progress-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1.8rem 0;box-shadow:var(--shadow)}
+.progress-card h3{margin:.1em 0 .4em}
+.pbar{height:12px;background:var(--surface-2);border-radius:999px;overflow:hidden;border:1px solid var(--border)}
+.pbar > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#4f8bff);border-radius:999px;transition:width .5s ease}
+.pmeta{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-top:.5em}
+
+/* lesson cards grid */
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin:1.4rem 0}
+.lcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.2rem;box-shadow:var(--shadow);display:block;color:var(--text);position:relative;transition:transform .14s ease,border-color .14s ease}
+.lcard:hover{transform:translateY(-3px);border-color:var(--accent);text-decoration:none}
+.lcard .lnum{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:.78rem;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:.18em .6em;border-radius:7px}
+.lcard h4{margin:.6em 0 .3em;font-size:1rem}
+.lcard p{font-size:.86rem;color:var(--muted);margin:0}
+.lcard .bloom{margin-top:.6em;display:flex;gap:.35em;flex-wrap:wrap}
+.lcard .check{position:absolute;top:.9rem;right:1rem;color:var(--ok);font-weight:700;display:none}
+.lcard.done .check{display:block}
+.bloom-tag{font-size:.66rem;font-family:'Sora',sans-serif;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .55em;border-radius:6px;background:var(--surface-2);border:1px solid var(--border);color:var(--muted)}
+
+/* callouts */
+.note{border-radius:12px;padding:1rem 1.2rem;margin:1.3em 0;border:1px solid;font-size:.95rem}
+.note b:first-child,.note strong:first-child{display:block;margin-bottom:.25em}
+.note.info{background:var(--accent-soft);border-color:var(--accent-border)}
+.note.ok{background:var(--ok-soft);border-color:rgba(22,163,74,.35)}
+.note.warn{background:var(--warn-soft);border-color:rgba(217,119,6,.35)}
+.note.err{background:var(--err-soft);border-color:rgba(220,38,38,.3)}
+
+/* objectives */
+.objectives{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:12px;padding:1rem 1.3rem;margin:1.4em 0;box-shadow:var(--shadow)}
+.objectives h4{margin:.1em 0 .5em;font-size:.98rem}
+.objectives ul{margin:.3em 0}
+.objectives li{font-size:.94rem}
+
+/* recap box */
+.recap{background:linear-gradient(135deg,var(--accent-soft),transparent 70%),var(--surface);border:1px solid var(--accent-border);border-radius:var(--radius);padding:1.2rem 1.4rem;margin:2.2em 0 1em;box-shadow:var(--shadow)}
+.recap h4{margin:.1em 0 .5em}
+.recap li{font-size:.93rem}
+
+/* activity */
+.activity{background:var(--surface);border:1px dashed var(--accent-border);border-radius:var(--radius);padding:1.2rem 1.4rem;margin:1.8em 0}
+.activity h3{margin-top:.1em;color:var(--accent)}
+details.reveal{margin-top:.8em;background:var(--ok-soft);border:1px solid rgba(22,163,74,.35);border-radius:10px;padding:.6em .9em}
+details.reveal summary{cursor:pointer;font-weight:600;font-family:'Sora',sans-serif;font-size:.9rem}
+details.reveal[open] summary{margin-bottom:.4em}
+
+/* two-col compare */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2em 0}
+.col-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem;box-shadow:var(--shadow)}
+.col-box h4{margin:.1em 0 .4em;font-size:.95rem}
+.col-box ul{margin:.3em 0;font-size:.9rem}
+@media(max-width:680px){.cols{grid-template-columns:1fr}}
+
+/* quiz */
+.quiz-q{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem;margin:1rem 0;box-shadow:var(--shadow)}
+.quiz-q h4{margin:.1em 0 .6em;font-size:.98rem}
+.quiz-q .qb{margin-bottom:.55em}
+.quiz-q label{display:flex;gap:.6em;align-items:flex-start;padding:.5em .7em;border-radius:9px;cursor:pointer;font-size:.93rem;border:1px solid transparent}
+.quiz-q label:hover{background:var(--accent-soft)}
+.quiz-q input{margin-top:.3em;accent-color:var(--accent)}
+.quiz-q.correct{border-color:var(--ok);background:var(--ok-soft)}
+.quiz-q.wrong{border-color:var(--err);background:var(--err-soft)}
+.quiz-q .fb{display:none;margin-top:.6em;font-size:.88rem;padding:.6em .9em;border-radius:9px}
+.quiz-q .fb.show{display:block}
+.quiz-q .fb.good{background:var(--ok-soft);border:1px solid rgba(22,163,74,.35)}
+.quiz-q .fb.bad{background:var(--err-soft);border:1px solid rgba(220,38,38,.3)}
+.bloom-pill{float:right;font-size:.64rem;font-family:'Sora',sans-serif;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:.25em .6em;border-radius:999px}
+.score-box{display:none;margin:1.4em 0;padding:1.3rem 1.5rem;border-radius:var(--radius);font-family:'Sora',sans-serif;font-size:1.05rem;border:1px solid}
+.score-box.show{display:block}
+.score-box.pass{background:var(--ok-soft);border-color:rgba(22,163,74,.4)}
+.score-box.fail{background:var(--err-soft);border-color:rgba(220,38,38,.35)}
+
+/* certificate */
+.cert-box{background:var(--surface);border:1px solid var(--accent-border);border-radius:var(--radius);padding:1.4rem 1.5rem;margin:1.5em 0;box-shadow:var(--shadow)}
+.cert-box input[type=text]{width:100%;max-width:420px;padding:.65em .9em;border-radius:10px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:'Inter',sans-serif;margin:.5em 0 1em}
+.cert-box input[type=text]:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+#certPreview{margin-top:1.2em;border:2px solid var(--accent);border-radius:12px;padding:2rem 1.5rem;text-align:center;display:none;background:linear-gradient(160deg,var(--accent-soft),transparent 60%),var(--surface)}
+#certPreview.show{display:block}
+#certPreview .cp-title{font-family:'Sora',sans-serif;font-weight:800;font-size:1.5rem;color:var(--accent-deep)}
+html[data-theme="dark"] #certPreview .cp-title{color:#9ec1ff}
+#certPreview .cp-name{font-family:'Sora',sans-serif;font-size:1.9rem;font-weight:700;margin:.4em 0}
+
+/* lesson nav */
+.lesson-nav{display:flex;justify-content:space-between;gap:1rem;margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.mark-btn{display:block;margin:2.2rem auto 0;}
+.mark-btn.done{background:var(--ok);box-shadow:0 6px 18px rgba(22,163,74,.3)}
+
+/* case study */
+.case{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--warn);border-radius:12px;padding:1.1rem 1.3rem;margin:1.6em 0;box-shadow:var(--shadow)}
+.case .case-tag{font-family:'Sora',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--warn)}
+.case h3{margin:.25em 0 .4em}
+
+footer.site{border-top:1px solid var(--border);padding:1.6rem 0 2.2rem;color:var(--muted);font-size:.85rem;text-align:center;background:var(--surface)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;padding:.6em 1em;border-radius:0 0 10px 0;z-index:100}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media(max-width:760px){
+  .nav{height:auto;flex-wrap:wrap;padding:.5rem 0}
+  .brand{font-size:.92rem}
+  body{font-size:15.5px}
+  pre{font-size:.78rem}
+}
+.site-footer{border-top:1px solid var(--border);margin-top:2rem;padding:1.6rem 0 2.2rem;text-align:center;font-size:.85rem;color:var(--muted)}
+.site-footer p{margin:.25em 0}
+@media print{header.site,.site-footer,.lesson-nav,.mark-btn,#themeBtn{display:none}section.page{display:block!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main-content">Sari la conținut</a>
+<header class="site">
+  <div class="wrap nav">
+    <a href="#acasa" class="brand"><span class="logo">🐍⚙️</span> Python Core · clasa a X-a</a>
+    <span class="nav-spacer"></span>
+    <a class="nlink" href="#acasa">Acasă</a>
+    <div class="dropdown" id="lessonsDD">
+      <button class="nlink" id="lessonsBtn" aria-haspopup="true" aria-expanded="false">Lecții ▾</button>
+      <nav class="dropdown-menu" aria-label="Lista lecțiilor">
+        <a href="#l1"><b>L1</b> Colecții avansate <span class="done" data-done="l1">✓</span></a>
+        <a href="#l2"><b>L2</b> Șiruri și expresii regulate <span class="done" data-done="l2">✓</span></a>
+        <a href="#l3"><b>L3</b> Funcții avansate <span class="done" data-done="l3">✓</span></a>
+        <a href="#l4"><b>L4</b> Module și pachete <span class="done" data-done="l4">✓</span></a>
+        <a href="#l5"><b>L5</b> Recapitulare L1–L4 <span class="done" data-done="l5">✓</span></a>
+        <a href="#l6"><b>L6</b> OOP — Introducere <span class="done" data-done="l6">✓</span></a>
+        <a href="#l7"><b>L7</b> OOP — Avansat <span class="done" data-done="l7">✓</span></a>
+        <a href="#l8"><b>L8</b> Excepții și debugging <span class="done" data-done="l8">✓</span></a>
+        <a href="#l9"><b>L9</b> Proiect aplicativ <span class="done" data-done="l9">✓</span></a>
+        <a href="#l10"><b>L10</b> Test final + Certificat <span class="done" data-done="l10">✓</span></a>
+      </nav>
+    </div>
+    <a class="nlink" href="#despre">ℹ Despre</a>
+    <button id="themeBtn" title="Comută tema" aria-label="Comută tema luminoasă/întunecată">🌓</button>
+  </div>
+</header>
+
+<main id="main-content" class="wrap">
+
+<!-- ============================ ACASĂ ============================ -->
+<section class="page" id="acasa">
+  <div class="hero">
+    <span class="eyebrow">Volumul 2 · Seria Python Education</span>
+    <h1>🐍⚙️ Python <span class="accent">Core</span></h1>
+    <p class="lead">Programare intermediară în <strong>Python</strong> pentru elevii clasei a X-a: colecții avansate, expresii regulate, funcții de ordin superior, programare orientată pe obiecte, excepții și un proiect aplicativ real. Continuarea naturală a cursului <em>Python Start</em>.</p>
+    <div class="badges">
+      <span class="badge blue">Nivel: Intermediar</span>
+      <span class="badge">Clasa a X-a</span>
+      <span class="badge">10 lecții</span>
+      <span class="badge">Proiect aplicativ inclus</span>
+      <span class="badge">Certificat PDF</span>
+    </div>
+    <p>
+      <a class="btn btn-primary" href="#l1">▶ Începe cursul</a>
+      <a class="btn btn-ghost" href="#despre">Despre resursă</a>
+    </p>
+  </div>
+
+  <div class="progress-card">
+    <h3>Progresul tău</h3>
+    <div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="pbarOuter"><div id="pbarFill"></div></div>
+    <div class="pmeta"><span><strong id="pCount">0</strong> / 10 lecții parcurse</span><span id="pPercent">0%</span></div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:0">Progresul se salvează local în browserul tău. Nu se trimite nimic spre niciun server.</p>
+  </div>
+
+  <h2>Structura cursului</h2>
+  <div class="lgrid">
+    <a class="lcard" href="#l1" data-card="l1"><span class="check">✓</span><span class="lnum">L1</span><h4>Colecții avansate</h4><p>tuple, dict, set, comprehensions — alegerea structurii potrivite.</p><div class="bloom"><span class="bloom-tag">Apply</span><span class="bloom-tag">Analyze</span></div></a>
+    <a class="lcard" href="#l2" data-card="l2"><span class="check">✓</span><span class="lnum">L2</span><h4>Șiruri și expresii regulate</h4><p>Metode str, f-strings, modulul re — căutare de tipare în text.</p><div class="bloom"><span class="bloom-tag">Apply</span></div></a>
+    <a class="lcard" href="#l3" data-card="l3"><span class="check">✓</span><span class="lnum">L3</span><h4>Funcții avansate</h4><p>lambda, map/filter, recursivitate, decoratori simpli.</p><div class="bloom"><span class="bloom-tag">Analyze</span></div></a>
+    <a class="lcard" href="#l4" data-card="l4"><span class="check">✓</span><span class="lnum">L4</span><h4>Module și pachete</h4><p>os, math, datetime, json, importlib — ecosistemul Python.</p><div class="bloom"><span class="bloom-tag">Understand</span><span class="bloom-tag">Apply</span></div></a>
+    <a class="lcard" href="#l5" data-card="l5"><span class="check">✓</span><span class="lnum">L5</span><h4>Recapitulare L1–L4</h4><p>Sinteză + quiz cumulativ de 6 itemi cu feedback imediat.</p><div class="bloom"><span class="bloom-tag">Evaluate</span></div></a>
+    <a class="lcard" href="#l6" data-card="l6"><span class="check">✓</span><span class="lnum">L6</span><h4>OOP — Introducere</h4><p>Clase, obiecte, __init__, atribute, metode.</p><div class="bloom"><span class="bloom-tag">Understand</span><span class="bloom-tag">Apply</span></div></a>
+    <a class="lcard" href="#l7" data-card="l7"><span class="check">✓</span><span class="lnum">L7</span><h4>OOP — Avansat</h4><p>Moștenire, polimorfism, __str__ și __repr__.</p><div class="bloom"><span class="bloom-tag">Analyze</span><span class="bloom-tag">Evaluate</span></div></a>
+    <a class="lcard" href="#l8" data-card="l8"><span class="check">✓</span><span class="lnum">L8</span><h4>Excepții și debugging</h4><p>try/except/finally, raise, tipuri de erori, logging.</p><div class="bloom"><span class="bloom-tag">Apply</span><span class="bloom-tag">Evaluate</span></div></a>
+    <a class="lcard" href="#l9" data-card="l9"><span class="check">✓</span><span class="lnum">L9</span><h4>Proiect aplicativ</h4><p>Manager de contacte/task-uri: fișier JSON + OOP + excepții.</p><div class="bloom"><span class="bloom-tag">Create</span></div></a>
+    <a class="lcard" href="#l10" data-card="l10"><span class="check">✓</span><span class="lnum">L10</span><h4>Test final + Certificat</h4><p>10 itemi pe taxonomia Bloom, prag 70%, certificat PDF.</p><div class="bloom"><span class="bloom-tag">Sinteză</span></div></a>
+  </div>
+
+  <div class="note info"><b>💡 Înainte de a începe — cum exersezi</b>
+  Acest curs presupune că ai parcurs noțiunile din <em>Python Start</em> (variabile, if, for/while, liste, funcții simple, fișiere). Pentru exersare recomandăm <strong>Python 3.12+</strong> instalat local (cu IDLE sau Thonny) sau un mediu online (de exemplu, interpreterul oficial de pe python.org). Fiecare lecție conține cod pe care merită să-l <em>tastezi</em>, nu doar să-l citești — degetele învață odată cu mintea.</div>
+</section>
+
+<!-- ============================ L1 ============================ -->
+<section class="page" id="l1">
+  <span class="eyebrow">Lecția 1 · CS 1.1 · Bloom: Apply, Analyze</span>
+  <h1>Colecții avansate</h1>
+  <p class="lead">În <em>Python Start</em> ai lucrat cu liste. Python îți oferă însă o întreagă familie de structuri de date, fiecare cu superputerea ei: <strong>tuple</strong> (imutabil), <strong>dict</strong> (perechi cheie–valoare), <strong>set</strong> (elemente unice). Alegerea structurii potrivite este jumătate din rezolvarea unei probleme.</p>
+
+  <div class="objectives"><h4>🎯 La finalul lecției vei putea:</h4><ul>
+    <li>să alegi argumentat între listă, tuplu, dicționar și mulțime pentru o problemă dată;</li>
+    <li>să creezi și să parcurgi dicționare (chei, valori, perechi) și mulțimi;</li>
+    <li>să aplici operații pe mulțimi: reuniune, intersecție, diferență;</li>
+    <li>să scrii list/dict/set comprehensions pentru transformări de date pe o singură linie.</li>
+  </ul></div>
+
+  <h2>1. Harta colecțiilor Python</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Structură</th><th>Sintaxă</th><th>Ordonată?</th><th>Mutabilă?</th><th>Duplicate?</th><th>Folosită pentru…</th></tr>
+    <tr><td><code>list</code></td><td><code>[1, 2, 3]</code></td><td>da</td><td>da</td><td>da</td><td>secvențe care se modifică (note, coadă de mesaje)</td></tr>
+    <tr><td><code>tuple</code></td><td><code>(1, 2, 3)</code></td><td>da</td><td><strong>nu</strong></td><td>da</td><td>date fixe (coordonate, RGB, data nașterii)</td></tr>
+    <tr><td><code>dict</code></td><td><code>{"an": 2026}</code></td><td>da (din 3.7)</td><td>da</td><td>chei unice</td><td>asocieri nume → valoare (agendă, configurări)</td></tr>
+    <tr><td><code>set</code></td><td><code>{1, 2, 3}</code></td><td><strong>nu</strong></td><td>da</td><td><strong>nu</strong></td><td>apartenență rapidă, eliminare duplicate</td></tr>
+  </table></div>
+
+  <h2>2. Tuple — datele care nu se schimbă</h2>
+  <p>Un tuplu este o listă „înghețată”. Odată creat, nu mai poate fi modificat — și exact asta îl face valoros: garantezi că nimeni (nici tu, din greșeală) nu îi schimbă conținutul.</p>
+<pre data-label="python"><code><span class="cm"># Un punct pe hartă nu are voie să „alunece” singur</span>
+punct = (45.79, 24.15)        <span class="cm"># lat, lon — Sibiu</span>
+culoare = (37, 99, 235)       <span class="cm"># RGB pentru albastrul Python Core</span>
+
+lat, lon = punct              <span class="cm"># despachetare (unpacking)</span>
+<span class="nb">print</span>(lat)                    <span class="cm"># 45.79</span>
+
+punct[0] = 46.0               <span class="cm"># 💥 TypeError: 'tuple' object does not</span>
+                              <span class="cm">#    support item assignment</span></code></pre>
+  <div class="note info"><b>💡 Despachetarea — cel mai elegant truc Python</b>
+  <code>a, b = b, a</code> interschimbă două variabile fără variabilă auxiliară. În spate, Python construiește un tuplu temporar <code>(b, a)</code> și îl despachetează. În alte limbaje ai avea nevoie de 3 linii.</div>
+
+  <h2>3. Dict — agenda universală</h2>
+  <p>Dicționarul leagă o <strong>cheie</strong> unică de o <strong>valoare</strong>. Căutarea după cheie este aproape instantanee, indiferent câte elemente conține — de aceea dict este probabil cea mai folosită structură din tot Python-ul real.</p>
+<pre data-label="python"><code>elev = {<span class="st">"nume"</span>: <span class="st">"Andrei"</span>, <span class="st">"clasa"</span>: <span class="st">"X B"</span>, <span class="st">"medie"</span>: <span class="nu">9.25</span>}
+
+<span class="nb">print</span>(elev[<span class="st">"medie"</span>])           <span class="cm"># 9.25 — acces după cheie</span>
+elev[<span class="st">"oras"</span>] = <span class="st">"București"</span>     <span class="cm"># adăugare</span>
+elev[<span class="st">"medie"</span>] = <span class="nu">9.50</span>           <span class="cm"># modificare</span>
+
+<span class="nb">print</span>(elev.get(<span class="st">"telefon"</span>, <span class="st">"lipsește"</span>))  <span class="cm"># nu crapă: "lipsește"</span>
+
+<span class="kw">for</span> cheie, valoare <span class="kw">in</span> elev.items():     <span class="cm"># parcurgere perechi</span>
+    <span class="nb">print</span>(<span class="kw">f</span><span class="st">"{cheie} → {valoare}"</span>)</code></pre>
+  <div class="note warn"><b>⚠️ Capcana clasică</b>
+  <code>elev["telefon"]</code> pe o cheie inexistentă produce <code>KeyError</code> și oprește programul. <code>elev.get("telefon")</code> returnează <code>None</code> (sau valoarea implicită pe care i-o dai) și programul merge mai departe. Reține diferența — revine la L8 (excepții) și în testul final.</div>
+
+  <h2>4. Set — clubul elementelor unice</h2>
+<pre data-label="python"><code>voturi = [<span class="st">"ana"</span>, <span class="st">"dan"</span>, <span class="st">"ana"</span>, <span class="st">"ioana"</span>, <span class="st">"dan"</span>, <span class="st">"ana"</span>]
+participanti = <span class="nb">set</span>(voturi)
+<span class="nb">print</span>(participanti)            <span class="cm"># {'ana', 'dan', 'ioana'} — duplicate eliminate</span>
+
+info = {<span class="st">"ana"</span>, <span class="st">"dan"</span>, <span class="st">"mihai"</span>}   <span class="cm"># elevii de la cercul de informatică</span>
+robo = {<span class="st">"dan"</span>, <span class="st">"ioana"</span>}          <span class="cm"># elevii de la robotică</span>
+
+<span class="nb">print</span>(info | robo)             <span class="cm"># reuniune:    {'ana','dan','mihai','ioana'}</span>
+<span class="nb">print</span>(info &amp; robo)             <span class="cm"># intersecție: {'dan'}</span>
+<span class="nb">print</span>(info - robo)             <span class="cm"># diferență:   {'ana','mihai'}</span>
+<span class="nb">print</span>(<span class="st">"dan"</span> <span class="kw">in</span> info)           <span class="cm"># True — test de apartenență instant</span></code></pre>
+
+  <h2>5. Comprehensions — fabrica de colecții pe o linie</h2>
+  <p>O <em>comprehension</em> comprimă tiparul „creez o colecție goală + for + append” într-o singură expresie lizibilă. Există pentru liste, dicționare și mulțimi.</p>
+<pre data-label="python"><code><span class="cm"># Varianta clasică (Python Start)          # Varianta comprehension (Python Core)</span>
+patrate = []
+<span class="kw">for</span> x <span class="kw">in</span> <span class="nb">range</span>(<span class="nu">6</span>):
+    patrate.append(x ** <span class="nu">2</span>)
+                                            patrate = [x ** <span class="nu">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="nb">range</span>(<span class="nu">6</span>)]
+<span class="cm"># Ambele: [0, 1, 4, 9, 16, 25]</span>
+
+<span class="cm"># Cu filtrare:</span>
+pare = [x <span class="kw">for</span> x <span class="kw">in</span> <span class="nb">range</span>(<span class="nu">20</span>) <span class="kw">if</span> x % <span class="nu">2</span> == <span class="nu">0</span>]
+
+<span class="cm"># Dict comprehension — codul ASCII al fiecărei litere:</span>
+coduri = {litera: <span class="nb">ord</span>(litera) <span class="kw">for</span> litera <span class="kw">in</span> <span class="st">"abc"</span>}
+<span class="cm"># {'a': 97, 'b': 98, 'c': 99}</span>
+
+<span class="cm"># Set comprehension — restul împărțirii la 4:</span>
+resturi = {x % <span class="nu">4</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="nb">range</span>(<span class="nu">100</span>)}    <span class="cm"># {0, 1, 2, 3}</span></code></pre>
+  <div class="note info"><b>💡 Regula bunului-simț</b>
+  Dacă o comprehension nu mai încape lizibil pe o linie (sau are mai mult de un <code>if</code> și un <code>for</code>), scrie buclă clasică. Codul se scrie o dată, dar se citește de zeci de ori.</div>
+
+  <div class="activity">
+    <h3>Activitatea 1 · Alege structura potrivită</h3>
+    <p>Pentru fiecare situație, scrie pe caiet ce structură de date ai folosi (<code>list</code>, <code>tuple</code>, <code>dict</code> sau <code>set</code>) și <em>de ce</em>:</p>
+    <ol>
+      <li>Numerele de telefon ale colegilor, căutabile după nume.</li>
+      <li>Coordonatele (lat, lon) ale școlii, care nu se schimbă niciodată.</li>
+      <li>Lista cu temele de făcut săptămâna aceasta, în ordinea priorității.</li>
+      <li>Cuvintele distincte dintr-un eseu (fără duplicate).</li>
+    </ol>
+    <details class="reveal"><summary>✅ Verifică-te</summary>
+    1 → <code>dict</code> (cheie = nume, valoare = telefon; căutare instantanee) · 2 → <code>tuple</code> (date fixe, protejate de modificări accidentale) · 3 → <code>list</code> (ordinea contează, se adaugă/șterg elemente) · 4 → <code>set</code> (unicitate garantată automat).</details>
+  </div>
+
+  <div class="recap"><h4>📌 Ce trebuie să reții pentru examen</h4><ul>
+    <li><strong>tuple</strong> = imutabil, perfect pentru date fixe; suportă despachetare: <code>a, b = (1, 2)</code>.</li>
+    <li><strong>dict</strong> = perechi cheie–valoare; acces prin <code>d[k]</code> (KeyError dacă lipsește) sau <code>d.get(k, implicit)</code> (sigur).</li>
+    <li><strong>set</strong> = elemente unice, neordonate; operatori: <code>|</code> reuniune, <code>&amp;</code> intersecție, <code>-</code> diferență.</li>
+    <li><strong>Comprehension:</strong> <code>[expr for x in iterabil if condiție]</code> — și variantele cu <code>{}</code> pentru dict/set.</li>
+    <li>Parcurgerea unui dict pe perechi: <code>for k, v in d.items():</code></li>
+  </ul></div>
+
+  <button class="btn btn-primary mark-btn" data-mark="l1">✓ Am parcurs lecția 1</button>
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#acasa">← Acasă</a><a class="btn btn-primary" href="#l2">Următoarea: Șiruri și regex →</a></div>
+</section>
+
+<!-- ============================ L2 ============================ -->
+<section class="page" id="l2">
+  <span class="eyebrow">Lecția 2 · CS 1.2 · Bloom: Apply</span>
+  <h1>Șiruri și expresii regulate</h1>
+  <p class="lead">Cea mai mare parte a datelor din lume este <strong>text</strong>: mesaje, loguri, fișiere CSV, pagini web. Python excelează la prelucrarea textului prin metodele clasei <code>str</code>, prin <strong>f-strings</strong> și — pentru tipare complexe — prin modulul <code>re</code> (expresii regulate).</p>
+
+  <div class="objectives"><h4>🎯 La finalul lecției vei putea:</h4><ul>
+    <li>să aplici metodele esențiale ale șirurilor: <code>strip</code>, <code>split</code>, <code>join</code>, <code>replace</code>, <code>lower/upper</code>, <code>startswith</code>, <code>find</code>;</li>
+    <li>să formatezi elegant ieșirea cu f-strings (aliniere, zecimale, mii);</li>
+    <li>să citești și să scrii expresii regulate simple cu <code>re.search</code> și <code>re.findall</code>;</li>
+    <li>să validezi date de intrare (CNP-uri de test, e-mailuri, numere de telefon) cu tipare regex.</li>
+  </ul></div>
+
+  <h2>1. Metodele șirurilor — trusa de bază</h2>
+  <p>Un șir este <em>imutabil</em> (ca tuplul!): metodele nu modifică șirul original, ci <strong>returnează unul nou</strong>.</p>
+<pre data-label="python"><code>mesaj = <span class="st">"  Buna ziua, Python!  "</span>
+
+mesaj.strip()                  <span class="cm"># "Buna ziua, Python!" — taie spațiile de la capete</span>
+mesaj.lower()                  <span class="cm"># "  buna ziua, python!  "</span>
+mesaj.replace(<span class="st">"ziua"</span>, <span class="st">"seara"</span>) <span class="cm"># înlocuiește toate aparițiile</span>
+mesaj.strip().startswith(<span class="st">"Buna"</span>)  <span class="cm"># True</span>
+
+csv = <span class="st">"Ana,9.50,X B"</span>
+campuri = csv.split(<span class="st">","</span>)       <span class="cm"># ['Ana', '9.50', 'X B'] — text → listă</span>
+<span class="st">" | "</span>.join(campuri)            <span class="cm"># "Ana | 9.50 | X B"  — listă → text</span></code></pre>
+  <div class="note info"><b>💡 split + join = perechea de aur</b>
+  <code>split</code> sparge textul în bucăți, <code>join</code> le lipește la loc. Cu aceste două metode prelucrezi fișiere CSV, loguri de server și liste de cuvinte fără nicio bibliotecă suplimentară.</div>
+
+  <h2>2. f-strings — formatare modernă</h2>
+<pre data-label="python"><code>nume, medie, pret = <span class="st">"Ana"</span>, <span class="nu">9.4567</span>, <span class="nu">1234567</span>
+
+<span class="nb">print</span>(<span class="kw">f</span><span class="st">"Eleva {nume} are media {medie:.2f}"</span>)   <span class="cm"># 2 zecimale: 9.46</span>
+<span class="nb">print</span>(<span class="kw">f</span><span class="st">"Preț: {pret:,} lei"</span>)                    <span class="cm"># separatori de mii: 1,234,567</span>
+<span class="nb">print</span>(<span class="kw">f</span><span class="st">"{nume:&gt;10}|"</span>)                           <span class="cm"># aliniere dreapta:  '       Ana|'</span>
+<span class="nb">print</span>(<span class="kw">f</span><span class="st">"{2 ** 10 = }"</span>)                          <span class="cm"># debugging: '2 ** 10 = 1024'</span></code></pre>
+
+  <h2>3. Expresii regulate — limbajul tiparelor</h2>
+  <p>O expresie regulată (regex) descrie un <strong>tipar de text</strong>, nu un text exact. În loc să cauți „0722123456”, cauți „<em>zece cifre care încep cu 07</em>”. Modulul standard este <code>re</code>.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Simbol</th><th>Înseamnă</th><th>Exemplu</th><th>Se potrivește cu</th></tr>
+    <tr><td><code>\d</code></td><td>o cifră (0–9)</td><td><code>\d\d</code></td><td>„42”, „07”</td></tr>
+    <tr><td><code>\w</code></td><td>literă, cifră sau _</td><td><code>\w+</code></td><td>„python3”, „ana_b”</td></tr>
+    <tr><td><code>\s</code></td><td>spațiu / tab / newline</td><td><code>a\sb</code></td><td>„a b”</td></tr>
+    <tr><td><code>.</code></td><td>orice caracter</td><td><code>c.t</code></td><td>„cat”, „cot”, „c9t”</td></tr>
+    <tr><td><code>+</code></td><td>una sau mai multe apariții</td><td><code>\d+</code></td><td>„7”, „2026”</td></tr>
+    <tr><td><code>*</code></td><td>zero sau mai multe</td><td><code>ab*</code></td><td>„a”, „ab”, „abbb”</td></tr>
+    <tr><td><code>{n}</code></td><td>exact n apariții</td><td><code>\d{4}</code></td><td>„2026”</td></tr>
+    <tr><td><code>[abc]</code></td><td>oricare din mulțime</td><td><code>[aeiou]</code></td><td>orice vocală</td></tr>
+    <tr><td><code>^</code> / <code>$</code></td><td>început / sfârșit de șir</td><td><code>^07\d{8}$</code></td><td>exact un nr. de telefon RO</td></tr>
+  </table></div>
+<pre data-label="python"><code><span class="kw">import</span> re
+
+text = <span class="st">"Suntem in anul 2026, clasa a 10-a, sala 204."</span>
+
+re.findall(<span class="kw">r</span><span class="st">"\d+"</span>, text)        <span class="cm"># ['2026', '10', '204'] — toate numerele</span>
+
+rezultat = re.search(<span class="kw">r</span><span class="st">"\d{4}"</span>, text)   <span class="cm"># primul grup de exact 4 cifre</span>
+<span class="kw">if</span> rezultat:
+    <span class="nb">print</span>(rezultat.group())       <span class="cm"># '2026'</span>
+
+<span class="cm"># Validare număr de telefon românesc:</span>
+tipar = <span class="kw">r</span><span class="st">"^07\d{8}$"</span>
+<span class="nb">print</span>(<span class="nb">bool</span>(re.search(tipar, <span class="st">"0722123456"</span>)))   <span class="cm"># True</span>
+<span class="nb">print</span>(<span class="nb">bool</span>(re.search(tipar, <span class="st">"0722-12-34"</span>)))   <span class="cm"># False</span></code></pre>
+  <div class="note warn"><b>⚠️ Folosește mereu r"..." (raw string)</b>
+  Fără prefixul <code>r</code>, Python interpretează <code>\d</code> ca secvență de evadare a șirului, nu ca simbol regex. Tiparele regex se scriu <em>întotdeauna</em> ca raw strings: <code>r"\d+"</code>.</div>
+
+  <h2>4. Studiu mini-practic: curățarea unui fișier de note</h2>
+<pre data-label="python"><code><span class="kw">import</span> re
+
+linii = [<span class="st">"  Ana ; 9,50 "</span>, <span class="st">"Dan;8.75"</span>, <span class="st">" Ioana ;10 "</span>]
+
+<span class="kw">for</span> linie <span class="kw">in</span> linii:
+    nume, nota = [camp.strip() <span class="kw">for</span> camp <span class="kw">in</span> linie.split(<span class="st">";"</span>)]
+    nota = nota.replace(<span class="st">","</span>, <span class="st">"."</span>)              <span class="cm"># 9,50 → 9.50</span>
+    <span class="kw">if</span> re.search(<span class="kw">r</span><span class="st">"^\d+(\.\d+)?$"</span>, nota):       <span class="cm"># e număr valid?</span>
+        <span class="nb">print</span>(<span class="kw">f</span><span class="st">"{nume:&lt;8} → {float(nota):.2f}"</span>)
+<span class="cm"># Ana      → 9.50
+# Dan      → 8.75
+# Ioana    → 10.00</span></code></pre>
+
+  <div class="activity">
+    <h3>Activitatea 2 · Detectorul de date</h3>
+    <p>Scrie pe caiet (apoi testează în Python) tipare regex pentru:</p>
+    <ol>
+      <li>un an calendaristic din secolul XXI (2000–2099);</li>
+      <li>un cod de elev de forma <code>XB-123</code> (două litere mari, cratimă, exact 3 cifre);</li>
+      <li>toate cuvintele care încep cu majusculă dintr-un text.</li>
+    </ol>
+    <details class="reveal"><summary>✅ Verifică-te</summary>
+    1 → <code>r"20\d{2}"</code> · 2 → <code>r"^[A-Z]{2}-\d{3}$"</code> · 3 → <code>re.findall(r"[A-Z]\w*", text)</code>. Variante echivalente sunt acceptate — regex-ul are rareori o singură soluție corectă. <strong>Atenție la diacritice:</strong> clasa <code>[A-Z]</code> acoperă doar literele ASCII — „Școala" sau „Țara" îi scapă! Pentru texte românești folosește <code>r"[A-ZĂÂÎȘȚ]\w*"</code> (în schimb, <code>\w</code> recunoaște implicit literele Unicode, deci restul cuvântului e prins corect).</details>
+  </div>
+
+  <div class="recap"><h4>📌 Ce trebuie să reții pentru examen</h4><ul>
+    <li>Șirurile sunt <strong>imutabile</strong> — metodele returnează șiruri noi.</li>
+    <li>Trusa de bază: <code>strip()</code>, <code>split(sep)</code>, <code>"sep".join(lista)</code>, <code>replace(a, b)</code>, <code>lower()/upper()</code>.</li>
+    <li>f-strings: <code>{x:.2f}</code> = 2 zecimale · <code>{x:,}</code> = separatori de mii · <code>{x:&gt;10}</code> = aliniere.</li>
+    <li>Regex de știut: <code>\d</code> cifră · <code>\w</code> alfanumeric · <code>+</code> una+ · <code>{n}</code> exact n · <code>^ $</code> capete de șir.</li>
+    <li><code>re.findall(tipar, text)</code> → listă cu toate potrivirile · <code>re.search()</code> → prima potrivire sau <code>None</code>.</li>
+    <li>Tiparele se scriu ca <strong>raw strings</strong>: <code>r"\d+"</code>.</li>
+  </ul></div>
+
+  <button class="btn btn-primary mark-btn" data-mark="l2">✓ Am parcurs lecția 2</button>
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#l1">← L1</a><a class="btn btn-primary" href="#l3">Următoarea: Funcții avansate →</a></div>
+</section>
+
+<!-- ============================ L3 ============================ -->
+<section class="page" id="l3">
+  <span class="eyebrow">Lecția 3 · CS 2.1 · Bloom: Analyze</span>
+  <h1>Funcții avansate</h1>
+  <p class="lead">Știi deja să definești funcții cu <code>def</code>. Acum urcăm un nivel: în Python, funcțiile sunt <strong>obiecte de primă clasă</strong> — pot fi anonime (<code>lambda</code>), pot fi pasate altor funcții (<code>map</code>, <code>filter</code>), se pot apela <em>pe ele însele</em> (recursivitate) și pot fi „împachetate” în alte funcții (decoratori).</p>
+
+  <div class="objectives"><h4>🎯 La finalul lecției vei putea:</h4><ul>
+    <li>să scrii funcții lambda și să decizi când sunt potrivite (și când nu);</li>
+    <li>să transformi și să filtrezi colecții cu <code>map</code>, <code>filter</code> și <code>sorted(key=...)</code>;</li>
+    <li>să analizezi o funcție recursivă: caz de bază, caz recursiv, adâncimea apelurilor;</li>
+    <li>să explici ce face un decorator simplu și să folosești unul existent.</li>
+  </ul></div>
+
+  <h2>1. Lambda — funcția fără nume</h2>
+  <p>O funcție lambda este o funcție de o singură expresie, definită „din mers”, de obicei ca argument pentru altă funcție.</p>
+<pre data-label="python"><code>dublu = <span class="kw">lambda</span> x: x * <span class="nu">2</span>          <span class="cm"># echivalent cu def dublu(x): return x * 2</span>
+<span class="nb">print</span>(dublu(<span class="nu">21</span>))                  <span class="cm"># 42</span>
+
+<span class="cm"># Adevărata utilitate: ca parametru `key` la sortare</span>
+elevi = [(<span class="st">"Ana"</span>, <span class="nu">9.5</span>), (<span class="st">"Dan"</span>, <span class="nu">8.7</span>), (<span class="st">"Ioana"</span>, <span class="nu">10.0</span>)]
+elevi_sortati = <span class="nb">sorted</span>(elevi, key=<span class="kw">lambda</span> e: e[<span class="nu">1</span>], reverse=<span class="kw">True</span>)
+<span class="cm"># [('Ioana', 10.0), ('Ana', 9.5), ('Dan', 8.7)] — descrescător după medie</span></code></pre>
+  <div class="note info"><b>💡 Regula de stil</b>
+  Dacă o lambda are nevoie de nume sau de mai mult de o expresie — scrie <code>def</code>. Lambda este pentru funcții „de unică folosință”, pasate pe loc.</div>
+
+  <h2>2. map și filter — banda transportoare</h2>
+<pre data-label="python"><code>note = [<span class="nu">9.5</span>, <span class="nu">4.2</span>, <span class="nu">8.75</span>, <span class="nu">3.9</span>, <span class="nu">10.0</span>]
+
+rotunjite = <span class="nb">list</span>(<span class="nb">map</span>(<span class="nb">round</span>, note))                <span class="cm"># [10, 4, 9, 4, 10]</span>
+promovati = <span class="nb">list</span>(<span class="nb">filter</span>(<span class="kw">lambda</span> n: n &gt;= <span class="nu">5</span>, note))  <span class="cm"># [9.5, 8.75, 10.0]</span>
+
+<span class="cm"># Echivalentele comprehension — adesea mai lizibile:</span>
+rotunjite = [<span class="nb">round</span>(n) <span class="kw">for</span> n <span class="kw">in</span> note]
+promovati = [n <span class="kw">for</span> n <span class="kw">in</span> note <span class="kw">if</span> n &gt;= <span class="nu">5</span>]</code></pre>
+  <p><code>map</code> aplică o funcție pe <em>fiecare</em> element; <code>filter</code> păstrează doar elementele pentru care funcția returnează <code>True</code>. Ambele returnează obiecte „leneșe” — le convertim cu <code>list()</code> ca să vedem rezultatul.</p>
+
+  <h2>3. Recursivitatea — funcția care se cheamă singură</h2>
+  <p>O funcție recursivă rezolvă o problemă <em>reducând-o la o versiune mai mică a ei însăși</em>. Are obligatoriu două părți:</p>
+  <ul>
+    <li><strong>cazul de bază</strong> — situația simplă, rezolvată direct, care oprește lanțul;</li>
+    <li><strong>cazul recursiv</strong> — apelul către sine, cu o problemă <em>strict mai mică</em>.</li>
+  </ul>
+<pre data-label="python"><code><span class="kw">def</span> <span class="nb">factorial</span>(n):
+    <span class="kw">if</span> n &lt;= <span class="nu">1</span>:                <span class="cm"># cazul de bază</span>
+        <span class="kw">return</span> <span class="nu">1</span>
+    <span class="kw">return</span> n * factorial(n - <span class="nu">1</span>)   <span class="cm"># cazul recursiv: problemă mai mică</span>
+
+<span class="nb">print</span>(factorial(<span class="nu">5</span>))           <span class="cm"># 120</span>
+
+<span class="cm"># Cum se desfășoară apelurile:
+# factorial(5) → 5 * factorial(4)
+#                    → 4 * factorial(3)
+#                         → 3 * factorial(2)
+#                              → 2 * factorial(1)
+#                                   → 1        (baza!)
+# … apoi totul se „strânge” înapoi: 2·1=2, 3·2=6, 4·6=24, 5·24=120</span></code></pre>
+  <div class="note err"><b>💥 Ce se întâmplă fără caz de bază?</b>
+  Apelurile nu se opresc niciodată; Python umple stiva de apeluri și ridică <code>RecursionError: maximum recursion depth exceeded</code> (implicit ~1000 de niveluri). Întrebare de acest tip apare frecvent la evaluări — inclusiv în testul final al cursului.</div>
+
+  <div class="case">
+    <span class="case-tag">📌 Studiu de caz · ancorare reală</span>
+    <h3>Cum „recurge” Google prin Internet — PageRank simplificat</h3>
+    <p>Algoritmul istoric al căutării Google, <strong>PageRank</strong>, pornește de la o idee recursivă: <em>o pagină este importantă dacă spre ea trimit pagini importante</em>. Definiția importanței unei pagini depinde de importanța altor pagini — care depinde, la rândul ei, de altele. Exact structura unei funcții recursive: problema se exprimă prin versiuni „mai mici” ale ei însăși, iar calculul se repetă până când valorile se stabilizează (cazul de bază practic: „nu se mai schimbă nimic semnificativ”). <em>Observație de finețe:</em> definiția este recursivă, dar calculul practic de mai jos este iterativ (o buclă care repetă pasul până la stabilizare) — în informatică, o problemă definită recursiv se poate rezolva adesea și iterativ, iar alegerea variantei este o decizie de proiectare.</p>
+<pre data-label="python"><code><span class="cm"># PageRank de jucărie: 3 pagini care se leagă între ele</span>
+linkuri = {<span class="st">"A"</span>: [<span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"B"</span>: [<span class="st">"C"</span>], <span class="st">"C"</span>: [<span class="st">"A"</span>]}
+rank = {p: <span class="nu">1.0</span> <span class="kw">for</span> p <span class="kw">in</span> linkuri}          <span class="cm"># toate pornesc egale</span>
+
+<span class="kw">for</span> pas <span class="kw">in</span> <span class="nb">range</span>(<span class="nu">20</span>):                      <span class="cm"># repetăm până se stabilizează</span>
+    nou = {p: <span class="nu">0.15</span> <span class="kw">for</span> p <span class="kw">in</span> linkuri}
+    <span class="kw">for</span> pagina, iesiri <span class="kw">in</span> linkuri.items():
+        <span class="kw">for</span> tinta <span class="kw">in</span> iesiri:
+            nou[tinta] += <span class="nu">0.85</span> * rank[pagina] / <span class="nb">len</span>(iesiri)
+    rank = nou
+
+<span class="nb">print</span>({p: <span class="nb">round</span>(r, <span class="nu">2</span>) <span class="kw">for</span> p, r <span class="kw">in</span> rank.items()})
+<span class="cm"># C iese cea mai „importantă” — primește linkuri de la A și B</span></code></pre>
+    <p style="font-size:.9rem;margin-bottom:0"><em>Observă cum lecțiile se leagă: dict + comprehension (L1), bucle imbricate (Python Start), gândire recursivă (L3).</em></p>
+  </div>
+
+  <h2>4. Decoratori — funcții care îmbracă funcții</h2>
+  <p>Un decorator primește o funcție și returnează o versiune „îmbunătățită” a ei, fără să-i modifice codul. Sintaxa <code>@decorator</code> deasupra unui <code>def</code> este doar zahăr sintactic pentru <code>functie = decorator(functie)</code>.</p>
+<pre data-label="python"><code><span class="kw">import</span> time
+
+<span class="kw">def</span> <span class="nb">cronometru</span>(functie):
+    <span class="kw">def</span> <span class="nb">invelis</span>(*args, **kwargs):
+        start = time.perf_counter()
+        rezultat = functie(*args, **kwargs)     <span class="cm"># apelăm originalul</span>
+        durata = time.perf_counter() - start
+        <span class="nb">print</span>(<span class="kw">f</span><span class="st">"{functie.__name__} a durat {durata:.4f}s"</span>)
+        <span class="kw">return</span> rezultat
+    <span class="kw">return</span> invelis
+
+<span class="nu">@cronometru</span>
+<span class="kw">def</span> <span class="nb">suma_mare</span>():
+    <span class="kw">return</span> <span class="nb">sum</span>(<span class="nb">range</span>(<span class="nu">10_000_000</span>))
+
+suma_mare()      <span class="cm"># suma_mare a durat 0.21xx s</span></code></pre>
+  <div class="note info"><b>💡 Unde îi vei reîntâlni</b>
+  În frameworkuri reale decoratorii sunt peste tot: <code>@app.route("/")</code> în Flask, <code>@staticmethod</code> și <code>@property</code> în OOP (L6–L7), <code>@pytest.fixture</code> la testare. Pentru clasa a X-a e suficient să îi <em>citești</em> corect: „funcția de sub @ a fost împachetată”.</div>
+
+  <div class="activity">
+    <h3>Activitatea 3 · Trasează recursivitatea</h3>
+    <p>Fie funcția:</p>
+<pre data-label="python"><code><span class="kw">def</span> <span class="nb">mister</span>(n):
+    <span class="kw">if</span> n == <span class="nu">0</span>:
+        <span class="kw">return</span> <span class="nu">0</span>
+    <span class="kw">return</span> n + mister(n - <span class="nu">1</span>)</code></pre>
+    <p>Pe caiet: (a) desenează lanțul de apeluri pentru <code>mister(4)</code>; (b) ce calculează funcția, în general? (c) ce s-ar întâmpla la apelul <code>mister(-1)</code>?</p>
+    <details class="reveal"><summary>✅ Verifică-te</summary>
+    (a) mister(4) → 4 + mister(3) → 3 + mister(2) → 2 + mister(1) → 1 + mister(0) → 0; rezultat 10. (b) Suma 1+2+…+n. (c) n scade la −2, −3, … și nu atinge niciodată 0 → <code>RecursionError</code>: cazul de bază există, dar nu este <em>atins</em> — o lecție subtilă: baza trebuie să fie accesibilă din orice intrare validă, iar intrările invalide trebuie respinse (vezi L8).</details>
+  </div>
+
+  <div class="recap"><h4>📌 Ce trebuie să reții pentru examen</h4><ul>
+    <li><strong>lambda</strong> = funcție anonimă de o expresie; tipic ca <code>key=</code> la <code>sorted</code>/<code>min</code>/<code>max</code>.</li>
+    <li><strong>map(f, col)</strong> transformă fiecare element; <strong>filter(f, col)</strong> păstrează elementele cu f(x) adevărat.</li>
+    <li>O funcție recursivă are obligatoriu <strong>caz de bază</strong> + <strong>caz recursiv cu problemă mai mică</strong>.</li>
+    <li>Lipsa (sau neatingerea) cazului de bază → <code>RecursionError</code>.</li>
+    <li><strong>Decorator</strong> = funcție care primește o funcție și returnează o funcție; <code>@d</code> ≡ <code>f = d(f)</code>.</li>
+  </ul></div>
+
+  <button class="btn btn-primary mark-btn" data-mark="l3">✓ Am parcurs lecția 3</button>
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#l2">← L2</a><a class="btn btn-primary" href="#l4">Următoarea: Module și pachete →</a></div>
+</section>
+
+<!-- ============================ L4 ============================ -->
+<section class="page" id="l4">
+  <span class="eyebrow">Lecția 4 · CS 2.2 · Bloom: Understand, Apply</span>
+  <h1>Module și pachete</h1>
+  <p class="lead">Nimeni nu scrie totul de la zero. Forța Python-ului stă în <strong>biblioteca standard</strong> („batteries included”) și în ecosistemul de pachete. Astăzi înveți să imporți corect, să folosești cele mai utile module standard și să-ți organizezi propriul cod în module.</p>
+
+  <div class="objectives"><h4>🎯 La finalul lecției vei putea:</h4><ul>
+    <li>să explici diferența dintre modul, pachet și bibliotecă;</li>
+    <li>să folosești corect formele de import: <code>import m</code>, <code>from m import f</code>, <code>import m as alias</code>;</li>
+    <li>să aplici funcții uzuale din <code>math</code>, <code>datetime</code>, <code>os</code> și <code>json</code>;</li>
+    <li>să salvezi și să încarci structuri de date Python în format JSON;</li>
+    <li>să descrii la ce folosește <code>importlib</code> și rolul lui <code>if __name__ == "__main__"</code>.</li>
+  </ul></div>
+
+  <h2>1. Vocabular: modul, pachet, bibliotecă</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Termen</th><th>Ce este</th><th>Exemplu</th></tr>
+    <tr><td><strong>Modul</strong></td><td>un fișier <code>.py</code> cu funcții/clase/constante</td><td><code>math</code>, propriul tău <code>utilitare.py</code></td></tr>
+    <tr><td><strong>Pachet</strong></td><td>un director de module (cu <code>__init__.py</code>)</td><td><code>json</code>, <code>email</code></td></tr>
+    <tr><td><strong>Biblioteca standard</strong></td><td>toate modulele livrate cu Python</td><td>~300 de module, fără instalare</td></tr>
+    <tr><td><strong>Pachet extern</strong></td><td>cod instalabil din PyPI cu <code>pip</code></td><td><code>requests</code>, <code>pygame</code>, <code>numpy</code></td></tr>
+  </table></div>
+
+  <h2>2. Cele trei forme de import</h2>
+<pre data-label="python"><code><span class="kw">import</span> math                      <span class="cm"># forma 1: aduci modulul întreg</span>
+math.sqrt(<span class="nu">144</span>)                    <span class="cm"># apelezi cu prefix → clar de unde vine</span>
+
+<span class="kw">from</span> math <span class="kw">import</span> sqrt, pi        <span class="cm"># forma 2: aduci doar ce-ți trebuie</span>
+sqrt(<span class="nu">144</span>)                         <span class="cm"># fără prefix</span>
+
+<span class="kw">import</span> datetime <span class="kw">as</span> dt            <span class="cm"># forma 3: alias pentru nume lungi</span>
+dt.date.today()</code></pre>
+  <div class="note warn"><b>⚠️ De evitat: <code>from math import *</code></b>
+  Importul „cu steluță” varsă <em>toate</em> numele modulului în programul tău. Dacă două module au funcții cu același nume, una o suprascrie tăcut pe cealaltă — bug-uri greu de găsit. Profesioniștii nu îl folosesc.</div>
+
+  <h2>3. Turul modulelor esențiale</h2>
+  <h3>math — matematică serioasă</h3>
+<pre data-label="python"><code><span class="kw">import</span> math
+math.sqrt(<span class="nu">2</span>)        <span class="cm"># 1.4142…</span>
+math.floor(<span class="nu">9.8</span>)     <span class="cm"># 9   (rotunjire în jos)</span>
+math.ceil(<span class="nu">9.1</span>)      <span class="cm"># 10  (rotunjire în sus)</span>
+math.gcd(<span class="nu">48</span>, <span class="nu">36</span>)    <span class="cm"># 12  (cmmdc)</span>
+math.pi             <span class="cm"># 3.14159…</span></code></pre>
+  <h3>datetime — timpul sub control</h3>
+<pre data-label="python"><code><span class="kw">from</span> datetime <span class="kw">import</span> date, datetime
+
+azi = date.today()
+<span class="nb">print</span>(azi.strftime(<span class="st">"%d.%m.%Y"</span>))            <span class="cm"># 11.06.2026</span>
+
+bac = date(<span class="nu">2028</span>, <span class="nu">6</span>, <span class="nu">26</span>)
+<span class="nb">print</span>((bac - azi).days, <span class="st">"zile până la BAC"</span>) <span class="cm"># aritmetică pe date!</span></code></pre>
+  <h3>os — dialogul cu sistemul de operare</h3>
+<pre data-label="python"><code><span class="kw">import</span> os
+os.getcwd()                  <span class="cm"># directorul curent de lucru</span>
+os.listdir(<span class="st">"."</span>)              <span class="cm"># lista fișierelor din directorul curent</span>
+os.path.exists(<span class="st">"note.json"</span>)  <span class="cm"># True/False — există fișierul?</span>
+os.makedirs(<span class="st">"backup"</span>, exist_ok=<span class="kw">True</span>)   <span class="cm"># creează director (fără eroare dacă există)</span></code></pre>
+  <h3>json — limba comună a datelor</h3>
+  <p>JSON (JavaScript Object Notation) este formatul standard de schimb de date pe Internet. Se mapează aproape 1-la-1 pe structurile Python: obiect↔dict, array↔list, string↔str, number↔int/float, true/false↔True/False, null↔None.</p>
+<pre data-label="python"><code><span class="kw">import</span> json
+
+agenda = {<span class="st">"Ana"</span>: <span class="st">"0722111222"</span>, <span class="st">"Dan"</span>: <span class="st">"0733444555"</span>}
+
+<span class="cm"># Salvare pe disc (serializare)</span>
+<span class="kw">with</span> <span class="nb">open</span>(<span class="st">"agenda.json"</span>, <span class="st">"w"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+    json.dump(agenda, f, indent=<span class="nu">2</span>, ensure_ascii=<span class="kw">False</span>)
+
+<span class="cm"># Încărcare de pe disc (deserializare)</span>
+<span class="kw">with</span> <span class="nb">open</span>(<span class="st">"agenda.json"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+    recuperata = json.load(f)
+
+<span class="nb">print</span>(recuperata[<span class="st">"Ana"</span>])      <span class="cm"># 0722111222 — datele au „supraviețuit” pe disc</span></code></pre>
+  <div class="note info"><b>💡 De ce contează JSON pentru tine</b>
+  Proiectul din L9 (managerul de contacte) folosește exact acest mecanism: datele trăiesc în memorie ca dict-uri și „dorm” pe disc ca JSON. Orice API web pe care îl vei folosi vreodată vorbește JSON.</div>
+
+  <h3>importlib și __name__ — culisele importului</h3>
+<pre data-label="python"><code><span class="kw">import</span> importlib
+modul = importlib.import_module(<span class="st">"math"</span>)   <span class="cm"># import „dinamic”, după numele din string —</span>
+modul.sqrt(<span class="nu">9</span>)                              <span class="cm"># util în pluginuri și frameworkuri</span>
+
+<span class="cm"># În fișierele tale .py vei vedea des:</span>
+<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
+    main()
+<span class="cm"># Înseamnă: „rulează main() doar dacă fișierul e pornit direct,
+# nu și atunci când e importat ca modul de alt program”.</span></code></pre>
+
+  <div class="activity">
+    <h3>Activitatea 4 · Modulul tău</h3>
+    <p>Creează fișierul <code>utilitare.py</code> cu două funcții: <code>medie(lista)</code> și <code>procent(parte, total)</code>. Apoi, dintr-un al doilea fișier <code>test.py</code> aflat în același director, importă-le și folosește-le. Adaugă în <code>utilitare.py</code> blocul <code>if __name__ == "__main__":</code> cu un mic test. Verifică: testul rulează când pornești <code>utilitare.py</code> direct, dar <em>nu</em> rulează când îl imporți din <code>test.py</code>.</p>
+    <details class="reveal"><summary>✅ Schiță de rezolvare</summary>
+    <code>def medie(lista): return sum(lista) / len(lista)</code> · <code>def procent(parte, total): return parte / total * 100</code> · în <code>test.py</code>: <code>from utilitare import medie</code>. Dacă vezi testul rulând la import, înseamnă că ai uitat gardul <code>__name__</code>.</details>
+  </div>
+
+  <div class="recap"><h4>📌 Ce trebuie să reții pentru examen</h4><ul>
+    <li><strong>Modul</strong> = fișier .py · <strong>pachet</strong> = director de module · <strong>biblioteca standard</strong> = livrată cu Python.</li>
+    <li>Trei forme de import: <code>import m</code> / <code>from m import f</code> / <code>import m as alias</code>. Evită <code>import *</code>.</li>
+    <li><code>json.dump(obj, f)</code> scrie pe disc · <code>json.load(f)</code> citește; corespondența dict↔obiect JSON.</li>
+    <li><code>os.path.exists()</code>, <code>os.listdir()</code>, <code>os.makedirs()</code> — operații de fișiere uzuale.</li>
+    <li><code>if __name__ == "__main__":</code> separă rularea directă de import.</li>
+  </ul></div>
+
+  <button class="btn btn-primary mark-btn" data-mark="l4">✓ Am parcurs lecția 4</button>
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#l3">← L3</a><a class="btn btn-primary" href="#l5">Următoarea: Recapitulare →</a></div>
+</section>
+
+<!-- ============================ L5 ============================ -->
+<section class="page" id="l5">
+  <span class="eyebrow">Lecția 5 · Evaluare formativă · Bloom: Evaluate</span>
+  <h1>Recapitulare L1–L4</h1>
+  <p class="lead">Prima jumătate a cursului este despre <strong>date și funcții</strong>. A doua jumătate (OOP, excepții, proiect) construiește direct pe ea. Verifică-ți fundația înainte de a urca etajul.</p>
+
+  <h2>1. Mind-map L1–L4</h2>
+  <div class="cols">
+    <div class="col-box"><h4>L1 · Colecții</h4><ul>
+      <li>tuple = imutabil, despachetare</li>
+      <li>dict = cheie→valoare, <code>.get()</code> vs <code>[]</code></li>
+      <li>set = unicitate, <code>| &amp; -</code></li>
+      <li>comprehensions: <code>[expr for x in c if cond]</code></li></ul></div>
+    <div class="col-box"><h4>L2 · Șiruri + regex</h4><ul>
+      <li>str imutabil; strip/split/join/replace</li>
+      <li>f-strings: <code>{x:.2f}</code>, <code>{x:,}</code></li>
+      <li>regex: <code>\d \w + {n} ^ $</code></li>
+      <li><code>re.findall</code> / <code>re.search</code>, raw strings</li></ul></div>
+    <div class="col-box"><h4>L3 · Funcții avansate</h4><ul>
+      <li>lambda — anonimă, o expresie</li>
+      <li>map/filter și echivalentele comprehension</li>
+      <li>recursivitate: bază + pas mai mic</li>
+      <li>decorator: <code>@d</code> ≡ <code>f = d(f)</code></li></ul></div>
+    <div class="col-box"><h4>L4 · Module</h4><ul>
+      <li>import / from-import / as</li>
+      <li>math, datetime, os</li>
+      <li>json.dump / json.load</li>
+      <li><code>__name__ == "__main__"</code></li></ul></div>
+  </div>
+
+  <h2>2. Quiz de control — 6 itemi cu feedback imediat</h2>
+  <p>Răspunzi, apoi apeși <em>Verifică răspunsurile</em>. Fiecare item îți explică <em>de ce</em>. Nu contează pentru certificat — e doar pentru tine.</p>
+
+  <div id="quizL5">
+    <div class="quiz-q" data-correct="b">
+      <h4><span class="bloom-pill">Understand</span>1. Care este diferența esențială dintre o listă și un tuplu?</h4>
+      <div class="qb">
+        <label><input type="radio" name="q5_1" value="a"> Tuplul poate conține doar numere.</label>
+        <label><input type="radio" name="q5_1" value="b"> Tuplul este imutabil — nu poate fi modificat după creare.</label>
+        <label><input type="radio" name="q5_1" value="c"> Lista nu poate fi parcursă cu for.</label>
+        <label><input type="radio" name="q5_1" value="d"> Nu există nicio diferență, doar parantezele.</label>
+      </div>
+      <div class="fb" data-fb="Corect! Imutabilitatea este superputerea tuplului: protejează datele fixe de modificări accidentale.|Nu chiar. Diferența fundamentală e mutabilitatea: tuplul nu poate fi modificat după creare (L1 §2)."></div>
+    </div>
+
+    <div class="quiz-q" data-correct="c">
+      <h4><span class="bloom-pill">Apply</span>2. Ce afișează: <code>print({x: x**2 for x in range(3)})</code>?</h4>
+      <div class="qb">
+        <label><input type="radio" name="q5_2" value="a"> <code>[0, 1, 4]</code></label>
+        <label><input type="radio" name="q5_2" value="b"> <code>{0, 1, 4}</code></label>
+        <label><input type="radio" name="q5_2" value="c"> <code>{0: 0, 1: 1, 2: 4}</code></label>
+        <label><input type="radio" name="q5_2" value="d"> <code>(0, 1, 4)</code></label>
+      </div>
+      <div class="fb" data-fb="Exact! Acoladele cu „cheie: valoare” = dict comprehension; cheile sunt 0,1,2, valorile pătratele lor.|Atenție la sintaxă: „x: x**2” între acolade creează un dicționar, nu listă/set (L1 §5)."></div>
+    </div>
+
+    <div class="quiz-q" data-correct="a">
+      <h4><span class="bloom-pill">Apply</span>3. Ce returnează <code>re.findall(r"\d+", "an 2026, clasa 10")</code>?</h4>
+      <div class="qb">
+        <label><input type="radio" name="q5_3" value="a"> <code>['2026', '10']</code></label>
+        <label><input type="radio" name="q5_3" value="b"> <code>['2', '0', '2', '6', '1', '0']</code></label>
+        <label><input type="radio" name="q5_3" value="c"> <code>[2026, 10]</code></label>
+        <label><input type="radio" name="q5_3" value="d"> <code>'2026'</code></label>
+      </div>
+      <div class="fb" data-fb="Corect! \\d+ = „una sau mai multe cifre consecutive”, iar findall returnează toate potrivirile, ca șiruri.|Reține: + grupează cifrele consecutive într-o singură potrivire, iar rezultatele sunt mereu șiruri, nu numere (L2 §3)."></div>
+    </div>
+
+    <div class="quiz-q" data-correct="d">
+      <h4><span class="bloom-pill">Analyze</span>4. O funcție recursivă fără caz de bază accesibil va produce…</h4>
+      <div class="qb">
+        <label><input type="radio" name="q5_4" value="a"> rezultat 0, întotdeauna</label>
+        <label><input type="radio" name="q5_4" value="b"> SyntaxError la definire</label>
+        <label><input type="radio" name="q5_4" value="c"> o buclă infinită care nu se oprește niciodată</label>
+        <label><input type="radio" name="q5_4" value="d"> RecursionError, când stiva de apeluri se umple</label>
+      </div>
+      <div class="fb" data-fb="Exact! Spre deosebire de un while infinit, recursivitatea consumă stiva — Python o oprește cu RecursionError la ~1000 de niveluri.|Aproape: nu rulează la infinit — fiecare apel ocupă stivă, iar Python ridică RecursionError când se atinge limita (L3 §3)."></div>
+    </div>
+
+    <div class="quiz-q" data-correct="b">
+      <h4><span class="bloom-pill">Apply</span>5. Cum sortezi lista <code>elevi = [("Ana", 9.5), ("Dan", 8.7)]</code> crescător după medie?</h4>
+      <div class="qb">
+        <label><input type="radio" name="q5_5" value="a"> <code>elevi.sort(9.5)</code></label>
+        <label><input type="radio" name="q5_5" value="b"> <code>sorted(elevi, key=lambda e: e[1])</code></label>
+        <label><input type="radio" name="q5_5" value="c"> <code>sorted(elevi[1])</code></label>
+        <label><input type="radio" name="q5_5" value="d"> <code>map(sorted, elevi)</code></label>
+      </div>
+      <div class="fb" data-fb="Corect! key primește o funcție care extrage criteriul de sortare din fiecare element — aici media, e[1].|Tiparul standard: sorted(colecție, key=lambda element: criteriu) (L3 §1)."></div>
+    </div>
+
+    <div class="quiz-q" data-correct="c">
+      <h4><span class="bloom-pill">Evaluate</span>6. Vrei să salvezi agenda (un dict) astfel încât să existe și după închiderea programului. Cea mai potrivită abordare:</h4>
+      <div class="qb">
+        <label><input type="radio" name="q5_6" value="a"> O păstrezi într-o variabilă globală — variabilele globale persistă.</label>
+        <label><input type="radio" name="q5_6" value="b"> O afișezi cu print() înainte de închidere și o rescrii data viitoare.</label>
+        <label><input type="radio" name="q5_6" value="c"> <code>json.dump()</code> într-un fișier la salvare și <code>json.load()</code> la pornire.</label>
+        <label><input type="radio" name="q5_6" value="d"> Faci screenshot la consolă.</label>
+      </div>
+      <div class="fb" data-fb="Exact! Memoria RAM se golește la închidere; persistența cere disc, iar JSON e formatul natural pentru dict-uri (L4 §3).|Variabilele trăiesc doar cât rulează programul. Persistența = scriere pe disc; pentru dict-uri, JSON este alegerea standard (L4 §3)."></div>
+    </div>
+  </div>
+  <button class="btn btn-primary" id="checkL5">Verifică răspunsurile</button>
+  <div class="score-box" id="scoreL5"></div>
+
+  <button class="btn btn-primary mark-btn" data-mark="l5">✓ Am parcurs lecția 5</button>
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#l4">← L4</a><a class="btn btn-primary" href="#l6">Următoarea: OOP — Introducere →</a></div>
+</section>
+
+<!-- ============================ L6 ============================ -->
+<section class="page" id="l6">
+  <span class="eyebrow">Lecția 6 · CS 3.1 · Bloom: Understand, Apply</span>
+  <h1>OOP — Introducere</h1>
+  <p class="lead">Până acum, datele (dict-uri, liste) și funcțiile care le prelucrează au trăit separat. <strong>Programarea orientată pe obiecte</strong> (OOP) le unește: o <em>clasă</em> descrie împreună datele unui lucru și acțiunile lui. Aproape tot software-ul modern — de la jocuri la Instagram — este scris așa.</p>
+
+  <div class="objectives"><h4>🎯 La finalul lecției vei putea:</h4><ul>
+    <li>să explici relația clasă ↔ obiect (șablon ↔ exemplar);</li>
+    <li>să definești o clasă cu <code>__init__</code>, atribute și metode;</li>
+    <li>să explici rolul lui <code>self</code> și de ce apare ca prim parametru;</li>
+    <li>să creezi mai multe obiecte din aceeași clasă și să le folosești independent.</li>
+  </ul></div>
+
+  <h2>1. Clasa = șablonul, obiectul = exemplarul</h2>
+  <p>Gândește-te la formularul de carnet de elev: formularul (gol) este <strong>clasa</strong>; carnetul tău completat este un <strong>obiect</strong> (o <em>instanță</em>). Din același formular se completează 30 de carnete diferite — din aceeași clasă se creează oricâte obiecte.</p>
+<pre data-label="python"><code><span class="kw">class</span> <span class="nb">Elev</span>:
+    <span class="st">"""Un elev cu nume și un catalog de note."""</span>
+
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, nume, clasa):
+        self.nume = nume          <span class="cm"># atribute = datele obiectului</span>
+        self.clasa = clasa
+        self.note = []
+
+    <span class="kw">def</span> <span class="nb">adauga_nota</span>(self, nota):  <span class="cm"># metode = acțiunile obiectului</span>
+        <span class="kw">if</span> <span class="nu">1</span> &lt;= nota &lt;= <span class="nu">10</span>:
+            self.note.append(nota)
+
+    <span class="kw">def</span> <span class="nb">media</span>(self):
+        <span class="kw">if</span> <span class="kw">not</span> self.note:
+            <span class="kw">return</span> <span class="nu">0</span>
+        <span class="kw">return</span> <span class="nb">sum</span>(self.note) / <span class="nb">len</span>(self.note)
+
+<span class="cm"># Creăm obiecte (instanțiere) — __init__ rulează automat:</span>
+ana = Elev(<span class="st">"Ana Popescu"</span>, <span class="st">"X B"</span>)
+dan = Elev(<span class="st">"Dan Ionescu"</span>, <span class="st">"X A"</span>)
+
+ana.adauga_nota(<span class="nu">10</span>)
+ana.adauga_nota(<span class="nu">9</span>)
+dan.adauga_nota(<span class="nu">7</span>)
+
+<span class="nb">print</span>(ana.media())    <span class="cm"># 9.5  — fiecare obiect are PROPRIILE date</span>
+<span class="nb">print</span>(dan.media())    <span class="cm"># 7.0</span></code></pre>
+
+  <h2>2. Anatomia: __init__ și self</h2>
+  <ul>
+    <li><code>__init__</code> este <strong>constructorul</strong>: metoda specială apelată automat la crearea obiectului. Aici primesc valori atributele.</li>
+    <li><code>self</code> este <strong>obiectul curent</strong> — „eu însumi”. Când scrii <code>ana.media()</code>, Python apelează în culise <code>Elev.media(ana)</code>: obiectul tău devine <code>self</code>.</li>
+    <li><code>self.nume</code> = atribut al obiectului (fiecare obiect are al lui); <code>nume</code> simplu = variabilă locală a metodei, dispare la final.</li>
+  </ul>
+  <div class="note warn"><b>⚠️ Cele 3 greșeli clasice ale începătorului OOP</b>
+  1) Uiți <code>self</code> din lista de parametri → <code>TypeError: media() takes 0 positional arguments but 1 was given</code>. 2) Scrii <code>nume = nume</code> în loc de <code>self.nume = nume</code> → atributul nu se salvează. 3) Apelezi <code>Elev.media()</code> pe clasă, nu pe obiect → nu există date.</div>
+
+  <h2>3. Atribute de clasă vs. atribute de instanță</h2>
+<pre data-label="python"><code><span class="kw">class</span> <span class="nb">Elev</span>:
+    scoala = <span class="st">"C.N. Gheorghe Lazăr"</span>     <span class="cm"># atribut DE CLASĂ — comun tuturor</span>
+
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, nume):
+        self.nume = nume                <span class="cm"># atribut DE INSTANȚĂ — al fiecăruia</span>
+
+ana, dan = Elev(<span class="st">"Ana"</span>), Elev(<span class="st">"Dan"</span>)
+<span class="nb">print</span>(ana.scoala == dan.scoala)        <span class="cm"># True — împărtășit</span>
+<span class="nb">print</span>(ana.nume == dan.nume)            <span class="cm"># False — individual</span></code></pre>
+
+  <h2>4. De ce OOP? Comparația cinstită</h2>
+  <div class="cols">
+    <div class="col-box"><h4>Fără OOP (dict + funcții)</h4>
+<pre data-label="python" style="font-size:.78rem"><code>elev = {<span class="st">"nume"</span>: <span class="st">"Ana"</span>, <span class="st">"note"</span>: []}
+<span class="kw">def</span> <span class="nb">media</span>(elev): ...
+media(elev)</code></pre>
+      <ul><li>merge pentru programe mici</li><li>datele și funcțiile pot fi „despărțite” din greșeală</li><li>nimic nu te oprește să scrii <code>elev["nota"]</code> (typo) — bug tăcut</li></ul></div>
+    <div class="col-box"><h4>Cu OOP (clasă)</h4>
+<pre data-label="python" style="font-size:.78rem"><code>ana = Elev(<span class="st">"Ana"</span>, <span class="st">"X B"</span>)
+ana.adauga_nota(<span class="nu">10</span>)
+ana.media()</code></pre>
+      <ul><li>datele + comportamentul călătoresc împreună</li><li>validarea (nota 1–10) e <em>în interiorul</em> clasei — imposibil de ocolit din greșeală</li><li>scalabil: 5 clase care colaborează &gt; 50 de funcții libere</li></ul></div>
+  </div>
+
+  <div class="activity">
+    <h3>Activitatea 5 · Prima ta clasă</h3>
+    <p>Scrie clasa <code>Carte</code> cu atributele <code>titlu</code>, <code>autor</code>, <code>pagini</code> și <code>pagina_curenta</code> (inițial 0). Adaugă metodele: <code>citeste(n)</code> — avansează cu n pagini, dar nu peste final — și <code>progres()</code> — returnează procentul citit. Creează două cărți și demonstrează că progresul lor este independent.</p>
+    <details class="reveal"><summary>✅ Schiță de rezolvare</summary>
+    <code>citeste</code>: <code>self.pagina_curenta = min(self.pagina_curenta + n, self.pagini)</code> · <code>progres</code>: <code>return self.pagina_curenta / self.pagini * 100</code>. Testul independenței: <code>c1.citeste(50)</code> nu schimbă <code>c2.progres()</code> — pentru că fiecare obiect are propriile atribute (<code>self</code>!).</details>
+  </div>
+
+  <div class="recap"><h4>📌 Ce trebuie să reții pentru examen</h4><ul>
+    <li><strong>Clasa</strong> = șablonul; <strong>obiectul/instanța</strong> = exemplarul concret creat din șablon.</li>
+    <li><code>__init__(self, ...)</code> = constructorul, rulează automat la instanțiere.</li>
+    <li><code>self</code> = obiectul curent; <code>obiect.metoda()</code> ≡ <code>Clasa.metoda(obiect)</code>.</li>
+    <li><strong>Atribut de instanță</strong> (<code>self.x</code>, în __init__) = al fiecărui obiect; <strong>atribut de clasă</strong> = comun tuturor.</li>
+    <li>Validarea datelor în interiorul metodelor protejează obiectul de stări invalide.</li>
+  </ul></div>
+
+  <button class="btn btn-primary mark-btn" data-mark="l6">✓ Am parcurs lecția 6</button>
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#l5">← L5</a><a class="btn btn-primary" href="#l7">Următoarea: OOP — Avansat →</a></div>
+</section>
+
+<!-- ============================ L7 ============================ -->
+<section class="page" id="l7">
+  <span class="eyebrow">Lecția 7 · CS 3.2 · Bloom: Analyze, Evaluate</span>
+  <h1>OOP — Avansat</h1>
+  <p class="lead">O singură clasă e utilă; o <em>familie</em> de clase e puternică. Astăzi: <strong>moștenirea</strong> (clase care extind clase), <strong>polimorfismul</strong> (același apel, comportamente diferite) și metodele speciale <code>__str__</code> / <code>__repr__</code> care fac obiectele „prezentabile”.</p>
+
+  <div class="objectives"><h4>🎯 La finalul lecției vei putea:</h4><ul>
+    <li>să derivezi o clasă-copil dintr-o clasă-părinte și să refolosești cod cu <code>super()</code>;</li>
+    <li>să suprascrii (override) o metodă și să explici ce versiune se apelează;</li>
+    <li>să demonstrezi polimorfismul pe o listă de obiecte din clase diferite;</li>
+    <li>să implementezi <code>__str__</code> și <code>__repr__</code> și să distingi rolurile lor;</li>
+    <li>să evaluezi când moștenirea este alegerea corectă (relația „este un fel de”).</li>
+  </ul></div>
+
+  <h2>1. Moștenirea — „este un fel de”</h2>
+  <p>Un <em>Pinguin</em> <strong>este un fel de</strong> <em>Pasăre</em>; o <em>PasăreCântătoare</em> la fel. Trec de testul „is-a” → moștenire. Clasa-copil primește gratuit tot ce are părintele și adaugă sau modifică ce-i trebuie.</p>
+<pre data-label="python"><code><span class="kw">class</span> <span class="nb">Animal</span>:                          <span class="cm"># clasa-părinte (de bază)</span>
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, nume):
+        self.nume = nume
+
+    <span class="kw">def</span> <span class="nb">saluta</span>(self):
+        <span class="kw">return</span> <span class="kw">f</span><span class="st">"{self.nume} face un sunet."</span>
+
+<span class="kw">class</span> <span class="nb">Caine</span>(Animal):                   <span class="cm"># clasa-copil (derivată)</span>
+    <span class="kw">def</span> <span class="nb">saluta</span>(self):                  <span class="cm"># OVERRIDE — suprascrie versiunea părintelui</span>
+        <span class="kw">return</span> <span class="kw">f</span><span class="st">"{self.nume} latră: Ham!"</span>
+
+<span class="kw">class</span> <span class="nb">Pisica</span>(Animal):
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, nume, vieti=<span class="nu">9</span>):
+        <span class="nb">super</span>().__init__(nume)         <span class="cm"># refolosește constructorul părintelui</span>
+        self.vieti = vieti
+
+    <span class="kw">def</span> <span class="nb">saluta</span>(self):
+        <span class="kw">return</span> <span class="kw">f</span><span class="st">"{self.nume} toarce ({self.vieti} vieți)."</span>
+
+rex = Caine(<span class="st">"Rex"</span>)
+<span class="nb">print</span>(rex.saluta())       <span class="cm"># Rex latră: Ham!   ← versiunea din Caine câștigă</span>
+<span class="nb">print</span>(<span class="nb">isinstance</span>(rex, Animal))  <span class="cm"># True — un Caine ESTE un Animal</span></code></pre>
+  <div class="note info"><b>💡 Regula de căutare a metodelor (MRO)</b>
+  La <code>obiect.metoda()</code>, Python caută metoda <strong>întâi în clasa obiectului</strong>, apoi urcă spre părinte, bunic etc. Prima găsită câștigă. De aceea override-ul din <code>Caine</code> „acoperă” versiunea din <code>Animal</code>.</div>
+
+  <h2>2. Polimorfismul — același verb, acțiuni diferite</h2>
+<pre data-label="python"><code>adapost = [Caine(<span class="st">"Rex"</span>), Pisica(<span class="st">"Mia"</span>), Caine(<span class="st">"Azor"</span>), Animal(<span class="st">"Misterios"</span>)]
+
+<span class="kw">for</span> animal <span class="kw">in</span> adapost:
+    <span class="nb">print</span>(animal.saluta())     <span class="cm"># ACELAȘI apel…</span>
+<span class="cm"># Rex latră: Ham!              # …comportament de Caine
+# Mia toarce (9 vieți).        # …comportament de Pisica
+# Azor latră: Ham!
+# Misterios face un sunet.     # …comportamentul implicit din Animal</span></code></pre>
+  <p>Bucla nu știe (și nu trebuie să știe) ce tip exact are fiecare element — fiecare obiect „știe singur” cum să răspundă. Acesta este <strong>polimorfismul</strong>, iar el face codul extensibil: mâine adaugi clasa <code>Papagal</code> și bucla funcționează neschimbată.</p>
+
+  <h2>3. __str__ și __repr__ — cartea de vizită a obiectului</h2>
+<pre data-label="python"><code><span class="kw">class</span> <span class="nb">Elev</span>:
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, nume, medie):
+        self.nume, self.medie = nume, medie
+
+    <span class="kw">def</span> <span class="nb">__str__</span>(self):                 <span class="cm"># pentru OAMENI — print(), f-strings</span>
+        <span class="kw">return</span> <span class="kw">f</span><span class="st">"{self.nume} (media {self.medie:.2f})"</span>
+
+    <span class="kw">def</span> <span class="nb">__repr__</span>(self):                <span class="cm"># pentru PROGRAMATORI — debugging, consolă</span>
+        <span class="kw">return</span> <span class="kw">f</span><span class="st">"Elev(nume={self.nume!r}, medie={self.medie})"</span>
+
+ana = Elev(<span class="st">"Ana"</span>, <span class="nu">9.5</span>)
+<span class="nb">print</span>(ana)            <span class="cm"># Ana (media 9.50)            ← __str__</span>
+<span class="nb">print</span>([ana])          <span class="cm"># [Elev(nume='Ana', medie=9.5)] ← în colecții se folosește __repr__!</span></code></pre>
+  <p>Fără aceste metode, <code>print(ana)</code> afișează inutilul <code>&lt;__main__.Elev object at 0x7f...&gt;</code>. Convenție: <code>__str__</code> = lizibil pentru utilizator; <code>__repr__</code> = precis, ideal cod care ar recrea obiectul.</p>
+
+  <div class="case">
+    <span class="case-tag">📌 Studiu de caz · ancorare reală</span>
+    <h3>Arhitectura unui joc — de ce orice joc e un exercițiu de OOP</h3>
+    <p>Deschide codul oricărui joc (text sau pygame) și vei găsi același schelet: o ierarhie de entități cu date + comportament. Relația „este un fel de” apare natural: și <em>Player</em>, și <em>Enemy</em> <strong>sunt un fel de</strong> entitate cu poziție și viață.</p>
+<pre data-label="python"><code><span class="kw">class</span> <span class="nb">Entitate</span>:
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, nume, viata):
+        self.nume, self.viata = nume, viata
+
+    <span class="kw">def</span> <span class="nb">primeste_lovitura</span>(self, dmg):
+        self.viata = <span class="nb">max</span>(<span class="nu">0</span>, self.viata - dmg)
+
+    <span class="kw">def</span> <span class="nb">traieste</span>(self):
+        <span class="kw">return</span> self.viata &gt; <span class="nu">0</span>
+
+<span class="kw">class</span> <span class="nb">Player</span>(Entitate):
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, nume):
+        <span class="nb">super</span>().__init__(nume, viata=<span class="nu">100</span>)
+        self.scor = <span class="nu">0</span>
+
+<span class="kw">class</span> <span class="nb">Enemy</span>(Entitate):
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, nume, putere):
+        <span class="nb">super</span>().__init__(nume, viata=<span class="nu">30</span>)
+        self.putere = putere
+
+<span class="kw">class</span> <span class="nb">Game</span>:
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, player, inamici):
+        self.player, self.inamici = player, inamici
+
+    <span class="kw">def</span> <span class="nb">runda</span>(self):
+        <span class="kw">for</span> e <span class="kw">in</span> self.inamici:
+            <span class="kw">if</span> e.traieste():
+                self.player.primeste_lovitura(e.putere)   <span class="cm"># polimorfism în acțiune</span></code></pre>
+    <p style="font-size:.9rem;margin-bottom:0"><em>Motorul jocului (Game) lucrează cu Entități, fără să-i pese cine e Player și cine e Enemy. Aceeași arhitectură o vei reîntâlni în pygame, Unity (C#) sau Godot — limbajul se schimbă, ideea nu.</em></p>
+  </div>
+
+  <h2>4. Când NU folosești moștenirea</h2>
+  <p>Moștenirea cere relația <strong>„este un fel de”</strong>. Dacă relația reală este <strong>„are un/o”</strong>, folosește <em>compoziție</em> (un atribut care conține alt obiect): o <code>Scoala</code> nu este un fel de <code>Elev</code> — <em>are</em> elevi: <code>self.elevi = []</code>. Test rapid: spune propoziția cu voce tare; dacă sună absurd, nu moșteni.</p>
+
+  <div class="activity">
+    <h3>Activitatea 6 · Analizează ierarhia</h3>
+    <p>Fie codul:</p>
+<pre data-label="python"><code><span class="kw">class</span> <span class="nb">A</span>:
+    <span class="kw">def</span> <span class="nb">cine</span>(self): <span class="kw">return</span> <span class="st">"A"</span>
+<span class="kw">class</span> <span class="nb">B</span>(A):
+    <span class="kw">pass</span>
+<span class="kw">class</span> <span class="nb">C</span>(B):
+    <span class="kw">def</span> <span class="nb">cine</span>(self): <span class="kw">return</span> <span class="st">"C"</span>
+
+<span class="kw">for</span> obj <span class="kw">in</span> [A(), B(), C()]:
+    <span class="nb">print</span>(obj.cine(), end=<span class="st">" "</span>)</code></pre>
+    <p>(a) Ce se afișează? (b) De ce B() nu afișează „B”? (c) Dacă adaugi în C metoda <code>cine</code> care apelează <code>super().cine()</code>, ce ar returna?</p>
+    <details class="reveal"><summary>✅ Verifică-te</summary>
+    (a) <code>A A C</code>. (b) B nu definește <code>cine</code>, deci căutarea urcă la părintele A — moștenirea „umple golurile”. (c) <code>super().cine()</code> din C sare la prima implementare de deasupra în lanț: cea din A → „A”.</details>
+  </div>
+
+  <div class="recap"><h4>📌 Ce trebuie să reții pentru examen</h4><ul>
+    <li><strong>Moștenire:</strong> <code>class Copil(Parinte)</code>; copilul primește tot și poate suprascrie (override).</li>
+    <li><code>super().__init__(...)</code> apelează constructorul părintelui — nu-l rescrie.</li>
+    <li>Căutarea metodelor: clasa obiectului → părinte → … prima găsită câștigă (MRO).</li>
+    <li><strong>Polimorfism:</strong> același apel <code>obj.metoda()</code> pe obiecte de tipuri diferite → comportamente diferite.</li>
+    <li><code>__str__</code> = afișare pentru utilizator (print); <code>__repr__</code> = reprezentare tehnică (debugging, colecții).</li>
+    <li>Moștenire = „este un fel de”; compoziție = „are un/o”.</li>
+  </ul></div>
+
+  <button class="btn btn-primary mark-btn" data-mark="l7">✓ Am parcurs lecția 7</button>
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#l6">← L6</a><a class="btn btn-primary" href="#l8">Următoarea: Excepții și debugging →</a></div>
+</section>
+
+<!-- ============================ L8 ============================ -->
+<section class="page" id="l8">
+  <span class="eyebrow">Lecția 8 · CS 4.1 · Bloom: Apply, Evaluate</span>
+  <h1>Excepții și debugging</h1>
+  <p class="lead">Programele reale trăiesc într-o lume ostilă: fișiere care lipsesc, utilizatori care tastează „abc” la „introdu un număr”, rețele care pică. Diferența dintre un script de școală și un program profesionist este <strong>cum se comportă când lucrurile merg prost</strong>.</p>
+
+  <div class="objectives"><h4>🎯 La finalul lecției vei putea:</h4><ul>
+    <li>să identifici după nume cele mai frecvente excepții și cauzele lor;</li>
+    <li>să protejezi cod riscant cu <code>try / except / else / finally</code>;</li>
+    <li>să ridici propriile erori cu <code>raise</code> atunci când datele sunt invalide;</li>
+    <li>să citești un traceback de jos în sus și să localizezi linia vinovată;</li>
+    <li>să folosești modulul <code>logging</code> în locul lui <code>print</code> pentru depanare.</li>
+  </ul></div>
+
+  <h2>1. Bestiarul erorilor — recunoaște-le după nume</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Excepția</th><th>Apare când…</th><th>Exemplu declanșator</th></tr>
+    <tr><td><code>ValueError</code></td><td>tipul e bun, valoarea nu</td><td><code>int("abc")</code></td></tr>
+    <tr><td><code>TypeError</code></td><td>operație pe tipuri incompatibile</td><td><code>"2" + 3</code></td></tr>
+    <tr><td><code>KeyError</code></td><td>cheie inexistentă în dict</td><td><code>agenda["Gigel"]</code></td></tr>
+    <tr><td><code>IndexError</code></td><td>index în afara secvenței</td><td><code>[1,2,3][7]</code></td></tr>
+    <tr><td><code>ZeroDivisionError</code></td><td>împărțire la zero</td><td><code>x / 0</code></td></tr>
+    <tr><td><code>FileNotFoundError</code></td><td>fișierul nu există la citire</td><td><code>open("nu_exist.txt")</code></td></tr>
+    <tr><td><code>RecursionError</code></td><td>recursivitate fără bază atinsă</td><td>vezi L3</td></tr>
+    <tr><td><code>SyntaxError</code> / <code>IndentationError</code></td><td>codul nu poate fi nici măcar pornit</td><td>două puncte uitate, indentare greșită</td></tr>
+  </table></div>
+  <div class="note info"><b>💡 Eroare de sintaxă vs. excepție la rulare</b>
+  <code>SyntaxError</code> apare <em>înainte</em> de rulare — programul nici nu pornește, și nu poate fi „prinsă” cu try. Celelalte sunt <strong>excepții la rulare</strong>: programul merge până la linia vinovată, apoi explodează — pe acestea le gestionăm.</div>
+
+  <h2>2. try / except / else / finally — plasa de siguranță</h2>
+<pre data-label="python"><code><span class="kw">try</span>:
+    varsta = <span class="nb">int</span>(<span class="nb">input</span>(<span class="st">"Vârsta ta: "</span>))      <span class="cm"># cod RISCANT</span>
+    rezultat = <span class="nu">2026</span> // varsta
+<span class="kw">except</span> ValueError:
+    <span class="nb">print</span>(<span class="st">"Te rog introdu un număr întreg."</span>)
+<span class="kw">except</span> ZeroDivisionError:
+    <span class="nb">print</span>(<span class="st">"Vârsta nu poate fi zero."</span>)
+<span class="kw">else</span>:
+    <span class="nb">print</span>(<span class="kw">f</span><span class="st">"OK: {rezultat}"</span>)               <span class="cm"># rulează DOAR dacă n-a fost nicio eroare</span>
+<span class="kw">finally</span>:
+    <span class="nb">print</span>(<span class="st">"Mulțumim!"</span>)                      <span class="cm"># rulează ÎNTOTDEAUNA — eroare sau nu</span></code></pre>
+  <p>Fluxul: Python încearcă blocul <code>try</code>; la prima excepție sare la primul <code>except</code> potrivit; <code>else</code> rulează doar pe drumul fără erori; <code>finally</code> rulează oricum (ideal pentru curățenie: închidere fișiere, conexiuni).</p>
+  <div class="note warn"><b>⚠️ Anti-modelul: except gol</b>
+  <code>except:</code> (sau <code>except Exception:</code> fără niciun tratament) „înghite” orice eroare, inclusiv pe cele pe care nu le-ai prevăzut — programul pare că merge, dar minte. Prinde <strong>excepții specifice</strong> și tratează-le real. La testul final există un item exact pe această judecată.</div>
+
+  <h2>3. raise — tu ridici eroarea</h2>
+  <p>Validarea din clasa <code>Elev</code> (L6) ignora tăcut notele invalide. Mai cinstit: semnalează problema zgomotos, cu <code>raise</code>.</p>
+<pre data-label="python"><code><span class="kw">def</span> <span class="nb">adauga_nota</span>(self, nota):
+    <span class="kw">if</span> <span class="kw">not</span> <span class="nu">1</span> &lt;= nota &lt;= <span class="nu">10</span>:
+        <span class="kw">raise</span> ValueError(<span class="kw">f</span><span class="st">"Notă invalidă: {nota}. Intervalul permis este 1–10."</span>)
+    self.note.append(nota)
+
+<span class="cm"># Cel care apelează decide ce face cu eroarea:</span>
+<span class="kw">try</span>:
+    ana.adauga_nota(<span class="nu">14</span>)
+<span class="kw">except</span> ValueError <span class="kw">as</span> e:
+    <span class="nb">print</span>(<span class="st">"Refuzat:"</span>, e)</code></pre>
+
+  <h2>4. Citește traceback-ul ca un detectiv</h2>
+<pre data-label="traceback"><code>Traceback (most recent call last):
+  File "note.py", line 12, in &lt;module&gt;
+    afiseaza_media(catalog)
+  File "note.py", line 7, in afiseaza_media
+    print(catalog["Gigel"])
+KeyError: 'Gigel'</code></pre>
+  <p>Citește <strong>de jos în sus</strong>: ultima linie = <em>ce</em> s-a întâmplat (<code>KeyError: 'Gigel'</code>); deasupra = <em>unde</em> exact (linia 7, în <code>afiseaza_media</code>); mai sus = lanțul de apeluri care a dus acolo. Traceback-ul nu e o pedeapsă — e o hartă spre bug.</p>
+
+  <h2>5. logging — print-ul care a crescut mare</h2>
+<pre data-label="python"><code><span class="kw">import</span> logging
+logging.basicConfig(level=logging.INFO,
+                    format=<span class="st">"%(asctime)s [%(levelname)s] %(message)s"</span>)
+
+logging.debug(<span class="st">"detaliu fin — vizibil doar la level=DEBUG"</span>)
+logging.info(<span class="st">"Aplicația a pornit"</span>)
+logging.warning(<span class="st">"Fișierul de date lipsește, pornesc cu agendă goală"</span>)
+logging.error(<span class="st">"Nu am putut salva agenda!"</span>)
+<span class="cm"># 2026-06-11 10:32:07 [INFO] Aplicația a pornit ...</span></code></pre>
+  <p>Față de <code>print</code>: nivele de gravitate (DEBUG &lt; INFO &lt; WARNING &lt; ERROR &lt; CRITICAL), timestamp automat, pornire/oprire dintr-o singură linie de configurare, scriere opțională în fișier. În proiectul din L9 îl folosim.</p>
+
+  <div class="activity">
+    <h3>Activitatea 7 · Judecă două variante</h3>
+    <p>Ambele funcții citesc o agendă din JSON. Care e mai robustă și <em>de ce</em>? Identifică două defecte concrete ale variantei slabe.</p>
+    <div class="cols">
+      <div class="col-box"><h4>Varianta A</h4>
+<pre data-label="python" style="font-size:.76rem"><code><span class="kw">def</span> <span class="nb">incarca</span>():
+    <span class="kw">try</span>:
+        f = <span class="nb">open</span>(<span class="st">"agenda.json"</span>)
+        <span class="kw">return</span> json.load(f)
+    <span class="kw">except</span>:
+        <span class="kw">pass</span></code></pre></div>
+      <div class="col-box"><h4>Varianta B</h4>
+<pre data-label="python" style="font-size:.76rem"><code><span class="kw">def</span> <span class="nb">incarca</span>():
+    <span class="kw">try</span>:
+        <span class="kw">with</span> <span class="nb">open</span>(<span class="st">"agenda.json"</span>) <span class="kw">as</span> f:
+            <span class="kw">return</span> json.load(f)
+    <span class="kw">except</span> FileNotFoundError:
+        logging.warning(<span class="st">"Agendă nouă."</span>)
+        <span class="kw">return</span> {}</code></pre></div>
+    </div>
+    <details class="reveal"><summary>✅ Verifică-te</summary>
+    Varianta B. Defectele lui A: (1) <code>except:</code> gol înghite <em>orice</em> — inclusiv JSON corupt sau Ctrl+C — și returnează tăcut <code>None</code>, mutând crash-ul mai târziu, în alt loc; (2) fișierul nu se închide garantat (lipsește <code>with</code>); (3) bonus: lipsa <code>return</code> pe ramura de eroare → <code>None</code> neașteptat. B prinde exact eroarea anticipată, loghează și returnează o valoare sigură.</details>
+  </div>
+
+  <div class="recap"><h4>📌 Ce trebuie să reții pentru examen</h4><ul>
+    <li>Excepții frecvente: <code>ValueError</code>, <code>TypeError</code>, <code>KeyError</code>, <code>IndexError</code>, <code>ZeroDivisionError</code>, <code>FileNotFoundError</code>.</li>
+    <li>Flux: <code>try</code> → primul <code>except</code> potrivit · <code>else</code> doar fără erori · <code>finally</code> întotdeauna.</li>
+    <li>Prinde excepții <strong>specifice</strong>; <code>except:</code> gol = anti-model.</li>
+    <li><code>raise ValueError("mesaj")</code> — semnalezi tu datele invalide.</li>
+    <li>Traceback-ul se citește de jos în sus: tipul erorii → linia → lanțul de apeluri.</li>
+    <li><code>logging</code> &gt; <code>print</code>: nivele, timestamp, configurabil.</li>
+  </ul></div>
+
+  <button class="btn btn-primary mark-btn" data-mark="l8">✓ Am parcurs lecția 8</button>
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#l7">← L7</a><a class="btn btn-primary" href="#l9">Următoarea: Proiect aplicativ →</a></div>
+</section>
+
+<!-- ============================ L9 ============================ -->
+<section class="page" id="l9">
+  <span class="eyebrow">Lecția 9 · CS 4.2 · Bloom: Create</span>
+  <h1>Proiect aplicativ — Manager de contacte</h1>
+  <p class="lead">Momentul sintezei: construiești o <strong>mini-aplicație CLI completă</strong> care unește tot cursul — OOP (L6–L7), JSON (L4), excepții și logging (L8), colecții (L1) și validare cu regex (L2). Nu mai citești cod: <em>creezi</em>.</p>
+
+  <div class="objectives"><h4>🎯 La finalul lecției vei putea:</h4><ul>
+    <li>să proiectezi arhitectura unei aplicații mici: clase, responsabilități, fluxul datelor;</li>
+    <li>să implementezi persistența datelor cu JSON (încărcare la pornire, salvare la modificare);</li>
+    <li>să construiești un meniu CLI robust, care nu cade la nicio intrare a utilizatorului;</li>
+    <li>să extinzi singur aplicația cu funcționalități noi (sarcinile de extindere).</li>
+  </ul></div>
+
+  <h2>1. Specificația aplicației</h2>
+  <p>„<strong>Contacte</strong>” — un manager de contacte în linie de comandă:</p>
+  <ol>
+    <li>adaugă un contact (nume, telefon validat cu regex, email);</li>
+    <li>listează toate contactele, sortate alfabetic;</li>
+    <li>caută un contact după fragment de nume;</li>
+    <li>șterge un contact;</li>
+    <li>datele <em>persistă</em> între rulări în <code>contacte.json</code>;</li>
+    <li>nicio intrare a utilizatorului nu trebuie să poată „omorî” aplicația.</li>
+  </ol>
+
+  <h2>2. Arhitectura — cine ce face</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Componentă</th><th>Responsabilitate</th><th>Lecția-sursă</th></tr>
+    <tr><td><code>class Contact</code></td><td>datele unui contact + validare + __str__</td><td>L6, L7, L8 (raise)</td></tr>
+    <tr><td><code>class AgendaContacte</code></td><td>colecția de contacte: add/list/find/delete + persistență JSON</td><td>L1, L4</td></tr>
+    <tr><td><code>def main()</code></td><td>meniul CLI, bucla de comenzi, prinderea erorilor</td><td>L8</td></tr>
+  </table></div>
+
+  <h2>3. Codul complet, comentat (~80 de linii)</h2>
+<pre data-label="contacte.py"><code><span class="st">"""Contacte — manager CLI. Python Core, L9."""</span>
+<span class="kw">import</span> json
+<span class="kw">import</span> logging
+<span class="kw">import</span> re
+
+logging.basicConfig(level=logging.INFO, format=<span class="st">"[%(levelname)s] %(message)s"</span>)
+FISIER = <span class="st">"contacte.json"</span>
+
+
+<span class="kw">class</span> <span class="nb">Contact</span>:
+    TIPAR_TEL = <span class="kw">r</span><span class="st">"^07\d{8}$"</span>                       <span class="cm"># atribut de clasă (L6)</span>
+
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, nume, telefon, email=<span class="st">""</span>):
+        <span class="kw">if</span> <span class="kw">not</span> nume.strip():
+            <span class="kw">raise</span> ValueError(<span class="st">"Numele nu poate fi gol."</span>)
+        <span class="kw">if</span> <span class="kw">not</span> re.search(self.TIPAR_TEL, telefon):  <span class="cm"># regex (L2)</span>
+            <span class="kw">raise</span> ValueError(<span class="kw">f</span><span class="st">"Telefon invalid: {telefon} (format: 07XXXXXXXX)"</span>)
+        self.nume, self.telefon, self.email = nume.strip(), telefon, email
+
+    <span class="kw">def</span> <span class="nb">to_dict</span>(self):                              <span class="cm"># obiect → dict, pentru JSON</span>
+        <span class="kw">return</span> {<span class="st">"nume"</span>: self.nume, <span class="st">"telefon"</span>: self.telefon, <span class="st">"email"</span>: self.email}
+
+    <span class="kw">def</span> <span class="nb">__str__</span>(self):                              <span class="cm"># L7</span>
+        <span class="kw">return</span> <span class="kw">f</span><span class="st">"{self.nume:&lt;20} {self.telefon}  {self.email}"</span>
+
+
+<span class="kw">class</span> <span class="nb">AgendaContacte</span>:
+    <span class="kw">def</span> <span class="nb">__init__</span>(self, fisier=FISIER):
+        self.fisier = fisier
+        self.contacte = []                          <span class="cm"># listă de obiecte Contact</span>
+        self._incarca()
+
+    <span class="kw">def</span> <span class="nb">_incarca</span>(self):
+        <span class="kw">try</span>:
+            <span class="kw">with</span> <span class="nb">open</span>(self.fisier, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+                <span class="kw">for</span> d <span class="kw">in</span> json.load(f):              <span class="cm"># dict → obiect</span>
+                    self.contacte.append(Contact(**d))
+            logging.info(<span class="kw">f</span><span class="st">"Încărcate {len(self.contacte)} contacte."</span>)
+        <span class="kw">except</span> FileNotFoundError:
+            logging.warning(<span class="st">"Fișier inexistent — pornesc cu agendă goală."</span>)
+        <span class="kw">except</span> (json.JSONDecodeError, ValueError) <span class="kw">as</span> e:
+            logging.error(<span class="kw">f</span><span class="st">"Date corupte: {e}. Pornesc cu agendă goală."</span>)
+
+    <span class="kw">def</span> <span class="nb">_salveaza</span>(self):
+        <span class="kw">with</span> <span class="nb">open</span>(self.fisier, <span class="st">"w"</span>, encoding=<span class="st">"utf-8"</span>) <span class="kw">as</span> f:
+            json.dump([c.to_dict() <span class="kw">for</span> c <span class="kw">in</span> self.contacte],  <span class="cm"># comprehension (L1)</span>
+                      f, indent=<span class="nu">2</span>, ensure_ascii=<span class="kw">False</span>)
+
+    <span class="kw">def</span> <span class="nb">adauga</span>(self, contact):
+        self.contacte.append(contact)
+        self._salveaza()
+
+    <span class="kw">def</span> <span class="nb">listeaza</span>(self):
+        <span class="kw">return</span> <span class="nb">sorted</span>(self.contacte, key=<span class="kw">lambda</span> c: c.nume.lower())  <span class="cm"># lambda (L3)</span>
+
+    <span class="kw">def</span> <span class="nb">cauta</span>(self, fragment):
+        <span class="kw">return</span> [c <span class="kw">for</span> c <span class="kw">in</span> self.contacte
+                <span class="kw">if</span> fragment.lower() <span class="kw">in</span> c.nume.lower()]
+
+    <span class="kw">def</span> <span class="nb">sterge</span>(self, nume):
+        inainte = <span class="nb">len</span>(self.contacte)
+        self.contacte = [c <span class="kw">for</span> c <span class="kw">in</span> self.contacte <span class="kw">if</span> c.nume != nume]
+        self._salveaza()
+        <span class="kw">return</span> inainte - <span class="nb">len</span>(self.contacte)            <span class="cm"># câte am șters</span>
+
+
+<span class="kw">def</span> <span class="nb">main</span>():
+    agenda = AgendaContacte()
+    meniu = <span class="st">"\n[1] Adaugă  [2] Listează  [3] Caută  [4] Șterge  [0] Ieșire\n&gt; "</span>
+    <span class="kw">while</span> <span class="kw">True</span>:
+        optiune = <span class="nb">input</span>(meniu).strip()
+        <span class="kw">try</span>:
+            <span class="kw">if</span> optiune == <span class="st">"1"</span>:
+                c = Contact(<span class="nb">input</span>(<span class="st">"Nume: "</span>), <span class="nb">input</span>(<span class="st">"Telefon: "</span>), <span class="nb">input</span>(<span class="st">"Email: "</span>))
+                agenda.adauga(c)
+                <span class="nb">print</span>(<span class="st">"✓ Salvat."</span>)
+            <span class="kw">elif</span> optiune == <span class="st">"2"</span>:
+                <span class="kw">for</span> c <span class="kw">in</span> agenda.listeaza():
+                    <span class="nb">print</span>(c)                            <span class="cm"># __str__ în acțiune</span>
+            <span class="kw">elif</span> optiune == <span class="st">"3"</span>:
+                <span class="kw">for</span> c <span class="kw">in</span> agenda.cauta(<span class="nb">input</span>(<span class="st">"Caută: "</span>)):
+                    <span class="nb">print</span>(c)
+            <span class="kw">elif</span> optiune == <span class="st">"4"</span>:
+                n = agenda.sterge(<span class="nb">input</span>(<span class="st">"Nume exact: "</span>))
+                <span class="nb">print</span>(<span class="kw">f</span><span class="st">"✓ Șterse: {n}"</span>)
+            <span class="kw">elif</span> optiune == <span class="st">"0"</span>:
+                <span class="kw">break</span>
+            <span class="kw">else</span>:
+                <span class="nb">print</span>(<span class="st">"Opțiune necunoscută."</span>)
+        <span class="kw">except</span> ValueError <span class="kw">as</span> e:                         <span class="cm"># intrări invalide ≠ crash</span>
+            <span class="nb">print</span>(<span class="st">"✗"</span>, e)
+
+
+<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:                          <span class="cm"># L4</span>
+    main()</code></pre>
+
+  <div class="case">
+    <span class="case-tag">📌 Studiu de caz · ancorare reală</span>
+    <h3>Aceeași arhitectură, alt domeniu: catalogul electronic al clasei</h3>
+    <p>Schimbă substantivele și ai o aplicație nouă: <code>Contact</code> devine <code>Elev</code> (nume, listă de note), <code>AgendaContacte</code> devine <code>Catalog</code> (adaugă elev, adaugă notă, top 3 medii, raport de corigență), iar JSON-ul ține catalogul între ore. Exact așa funcționează, la scară mult mai mare, sistemele reale de tip catalog electronic folosite în școlile din România: entități (elevi, note), reguli de validare, persistență și o interfață. Diferența e doar grosimea straturilor — fundamentul l-ai construit azi.</p>
+  </div>
+
+  <h2>4. Sarcinile tale de extindere (evaluate)</h2>
+  <p>Implementarea de mai sus este punctul de pornire (nota 7, dacă o reproduci funcțional și o poți explica linie cu linie). Pentru mai mult, <strong>creezi</strong>:</p>
+  <div class="table-wrap"><table>
+    <tr><th>Nivel</th><th>Sarcină de extindere</th><th>Ce exersezi</th></tr>
+    <tr><td>★ (nota 8)</td><td>Validare email cu regex + comanda [5] Editează contact</td><td>L2, L6</td></tr>
+    <tr><td>★★ (nota 9)</td><td>Clasa <code>ContactFavorit(Contact)</code> afișată cu ⭐, sortată prima</td><td>L7 — moștenire + override __str__</td></tr>
+    <tr><td>★★★ (nota 10)</td><td>Export raport <code>.txt</code> formatat + logging în fișier (<code>filename="agenda.log"</code>) + test: ce se întâmplă dacă două contacte au același nume? Decide și implementează o politică.</td><td>L4, L8 + decizie de proiectare</td></tr>
+  </table></div>
+
+  <div class="activity">
+    <h3>Activitatea 8 · Apărarea proiectului (la clasă)</h3>
+    <p>Prezintă aplicația în 3 minute: (1) demonstrație live cu o intrare validă și două invalide; (2) explică <em>de ce</em> ai pus validarea în <code>Contact.__init__</code> și nu în <code>main()</code>; (3) arată în <code>contacte.json</code> cum arată datele persistate. Întrebările colegilor fac parte din evaluare.</p>
+    <details class="reveal"><summary>✅ Reper pentru întrebarea (2)</summary>
+    Validarea în constructor garantează că <em>nu poate exista</em> niciun obiect Contact invalid, indiferent cine și de unde îl creează (meniu, încărcare din JSON, cod viitor). Dacă validarea ar sta doar în main(), orice alt drum de creare ar putea strecura date corupte — principiul: „obiectul își apără singur invarianții”.</details>
+  </div>
+
+  <div class="recap"><h4>📌 Ce trebuie să reții pentru examen</h4><ul>
+    <li>Arhitectura minimală a unei aplicații: <strong>clasa-entitate</strong> (date + validare) · <strong>clasa-colecție</strong> (operații + persistență) · <strong>interfața</strong> (meniu + tratarea erorilor).</li>
+    <li>Ciclul persistenței: <code>load</code> la pornire → modificări în memorie → <code>dump</code> la fiecare schimbare.</li>
+    <li>Conversiile obiect ↔ dict (<code>to_dict</code>, <code>Contact(**d)</code>) sunt podul dintre OOP și JSON.</li>
+    <li>Validarea stă în constructor — obiectul își apără singur invarianții.</li>
+    <li>Bucla principală prinde excepțiile de la utilizator: aplicația informează, nu moare.</li>
+  </ul></div>
+
+  <button class="btn btn-primary mark-btn" data-mark="l9">✓ Am parcurs lecția 9</button>
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#l8">← L8</a><a class="btn btn-primary" href="#l10">Următoarea: Test final + Certificat →</a></div>
+</section>
+
+<!-- ============================ L10 ============================ -->
+<section class="page" id="l10">
+  <span class="eyebrow">Lecția 10 · Evaluare sumativă + Certificat</span>
+  <h1>Test final + Certificat</h1>
+  <p class="lead">10 itemi construiți pe <strong>taxonomia lui Bloom</strong> — de la reamintire la creare — acoperind toate lecțiile. Prag de promovare: <strong>7/10 (70%)</strong>. La promovare îți generezi certificatul PDF personalizat.</p>
+
+  <div class="note info"><b>📊 Distribuția Bloom a celor 10 itemi</b>
+  Remember 1 · Understand 1 · Apply 2 · Analyze 3 · Evaluate 2 · Create 1 — o progresie naturală față de <em>Python Start</em>, cu accent mutat de pe reproducere pe analiză și judecată. Eticheta din colțul fiecărui item îți arată nivelul cognitiv vizat.</div>
+
+  <div id="quizFinal">
+    <div class="quiz-q" data-correct="b"><h4><span class="bloom-pill">Remember</span>1. Ce funcție built-in returnează numărul de elemente dintr-o listă, dintr-un dict sau dintr-un set?</h4><div class="qb">
+      <label><input type="radio" name="qf1" value="a"> <code>count()</code></label>
+      <label><input type="radio" name="qf1" value="b"> <code>len()</code></label>
+      <label><input type="radio" name="qf1" value="c"> <code>size()</code></label>
+      <label><input type="radio" name="qf1" value="d"> <code>length()</code></label></div></div>
+
+    <div class="quiz-q" data-correct="c"><h4><span class="bloom-pill">Understand</span>2. Care afirmație descrie corect relația dintre o clasă și un obiect?</h4><div class="qb">
+      <label><input type="radio" name="qf2" value="a"> Obiectul este șablonul, clasa este exemplarul creat din el.</label>
+      <label><input type="radio" name="qf2" value="b"> Clasa și obiectul sunt sinonime în Python.</label>
+      <label><input type="radio" name="qf2" value="c"> Clasa este șablonul; obiectul este o instanță concretă creată din acel șablon, cu propriile valori.</label>
+      <label><input type="radio" name="qf2" value="d"> Dintr-o clasă se poate crea un singur obiect.</label></div></div>
+
+    <div class="quiz-q" data-correct="a"><h4><span class="bloom-pill">Apply</span>3. Ce afișează: <code>print({x: x * 10 for x in range(3)})</code>?</h4><div class="qb">
+      <label><input type="radio" name="qf3" value="a"> <code>{0: 0, 1: 10, 2: 20}</code></label>
+      <label><input type="radio" name="qf3" value="b"> <code>[0, 10, 20]</code></label>
+      <label><input type="radio" name="qf3" value="c"> <code>{0, 10, 20}</code></label>
+      <label><input type="radio" name="qf3" value="d"> <code>{0: 0, 1: 10, 2: 20, 3: 30}</code></label></div></div>
+
+    <div class="quiz-q" data-correct="d"><h4><span class="bloom-pill">Apply</span>4. Ce returnează <code>re.findall(r"\d{4}", "BAC 2028, promoția 2026, sala 12")</code>?</h4><div class="qb">
+      <label><input type="radio" name="qf4" value="a"> <code>['2028', '2026', '12']</code></label>
+      <label><input type="radio" name="qf4" value="b"> <code>['2028']</code></label>
+      <label><input type="radio" name="qf4" value="c"> <code>[2028, 2026]</code></label>
+      <label><input type="radio" name="qf4" value="d"> <code>['2028', '2026']</code></label></div></div>
+
+    <div class="quiz-q" data-correct="b"><h4><span class="bloom-pill">Analyze</span>5. Funcția <code>def f(n): return n + f(n - 1)</code> este apelată cu <code>f(5)</code>. Ce se întâmplă și de ce?</h4><div class="qb">
+      <label><input type="radio" name="qf5" value="a"> Returnează 15 — suma 1+2+3+4+5.</label>
+      <label><input type="radio" name="qf5" value="b"> RecursionError — lipsește cazul de bază, apelurile nu se opresc niciodată și stiva se umple.</label>
+      <label><input type="radio" name="qf5" value="c"> SyntaxError — o funcție nu se poate apela pe ea însăși.</label>
+      <label><input type="radio" name="qf5" value="d"> Returnează 5, apoi se oprește singură.</label></div></div>
+
+    <div class="quiz-q" data-correct="c"><h4><span class="bloom-pill">Analyze</span>6. Fie <code>class Animal</code> cu metoda <code>sunet()</code> care returnează "..." și <code>class Caine(Animal)</code> care suprascrie <code>sunet()</code> returnând "Ham". Ce afișează <code>print(Caine().sunet(), Animal().sunet())</code>?</h4><div class="qb">
+      <label><input type="radio" name="qf6" value="a"> <code>... ...</code> — părintele are mereu prioritate.</label>
+      <label><input type="radio" name="qf6" value="b"> <code>Ham Ham</code> — override-ul modifică și clasa-părinte.</label>
+      <label><input type="radio" name="qf6" value="c"> <code>Ham ...</code> — fiecare obiect folosește metoda din propria clasă; căutarea pornește din clasa obiectului.</label>
+      <label><input type="radio" name="qf6" value="d"> Eroare — două clase nu pot avea metode cu același nume.</label></div></div>
+
+    <div class="quiz-q" data-correct="a"><h4><span class="bloom-pill">Analyze</span>7. Ce afișează codul?<br><code style="display:block;margin-top:.4em">try:<br>&nbsp;&nbsp;print(10 // 0)<br>except ZeroDivisionError:<br>&nbsp;&nbsp;print("E")<br>finally:<br>&nbsp;&nbsp;print("F")</code></h4><div class="qb">
+      <label><input type="radio" name="qf7" value="a"> <code>E</code> apoi <code>F</code> — excepția e prinsă, iar finally rulează întotdeauna.</label>
+      <label><input type="radio" name="qf7" value="b"> Doar <code>E</code> — finally rulează numai dacă nu apare nicio eroare.</label>
+      <label><input type="radio" name="qf7" value="c"> Doar <code>F</code> — except-ul oprește programul.</label>
+      <label><input type="radio" name="qf7" value="d"> Programul se oprește cu traceback la împărțirea la zero.</label></div></div>
+
+    <div class="quiz-q" data-correct="d"><h4><span class="bloom-pill">Evaluate</span>8. Aplicația ta trebuie să găsească instantaneu numărul de telefon după numele persoanei (mii de intrări). Cea mai potrivită structură și justificarea corectă:</h4><div class="qb">
+      <label><input type="radio" name="qf8" value="a"> Listă de tupluri — tuplurile sunt cele mai rapide structuri.</label>
+      <label><input type="radio" name="qf8" value="b"> Set — seturile elimină duplicatele, deci căutarea e instantă.</label>
+      <label><input type="radio" name="qf8" value="c"> Două liste paralele (nume, telefoane) — cea mai simplă soluție e cea mai bună.</label>
+      <label><input type="radio" name="qf8" value="d"> Dict cu numele drept cheie — accesul după cheie este aproape instantaneu indiferent de mărime, iar relația nume→telefon e exact o asociere cheie→valoare.</label></div></div>
+
+    <div class="quiz-q" data-correct="b"><h4><span class="bloom-pill">Evaluate</span>9. Două variante de citire a unui fișier JSON de configurare. Care este superioară și de ce?<br><code style="display:block;margin-top:.4em">A) try: ... except: pass<br>B) try: ... except FileNotFoundError: return CONFIG_IMPLICIT</code></h4><div class="qb">
+      <label><input type="radio" name="qf9" value="a"> A — prinde toate erorile posibile, deci e mai sigură.</label>
+      <label><input type="radio" name="qf9" value="b"> B — prinde exact eroarea anticipată și oferă o cale de continuare validă; A înghite tăcut orice problemă (inclusiv bug-uri neașteptate) și ascunde cauzele.</label>
+      <label><input type="radio" name="qf9" value="c"> Sunt echivalente — ambele folosesc try/except.</label>
+      <label><input type="radio" name="qf9" value="d"> Niciuna — fișierele nu se citesc niciodată în try.</label></div></div>
+
+    <div class="quiz-q" data-correct="c"><h4><span class="bloom-pill">Create</span>10. Proiectezi clasa <code>Task</code> pentru un manager de sarcini: fiecare task are titlu (obligatoriu, nevid) și stare (implicit nefinalizat), se afișează lizibil cu print() și refuză zgomotos titlurile goale. Care schiță respectă integral specificația?</h4><div class="qb">
+      <label><input type="radio" name="qf10" value="a"> <code>class Task: def __init__(self): self.titlu = input("Titlu:")</code> — citește singur titlul de la tastatură.</label>
+      <label><input type="radio" name="qf10" value="b"> <code>def __init__(self, titlu): titlu = titlu; self.gata = False</code> — fără self la titlu, dar cu stare implicită.</label>
+      <label><input type="radio" name="qf10" value="c"> <code>def __init__(self, titlu, gata=False): if not titlu.strip(): raise ValueError(...); self.titlu, self.gata = titlu, gata</code> + metoda <code>__str__</code> definită.</label>
+      <label><input type="radio" name="qf10" value="d"> <code>def __init__(self, titlu, gata=False): self.titlu = titlu</code> + comentariu „de validat mai târziu”.</label></div></div>
+  </div>
+
+  <button class="btn btn-primary" id="checkFinal">Trimite evaluarea</button>
+  <div class="score-box" id="scoreFinal"></div>
+
+  <div class="cert-box" id="certSection" style="display:none">
+    <h2 style="margin-top:.2em">🎓 Generează-ți certificatul</h2>
+    <p>Introdu numele și prenumele tău așa cum vrei să apară pe certificat:</p>
+    <input type="text" id="certName" maxlength="60" placeholder="Nume Prenume" aria-label="Numele pentru certificat">
+    <div>
+      <button class="btn btn-ghost" id="certPreviewBtn">Previzualizează</button>
+      <button class="btn btn-primary" id="certDownloadBtn">📄 Descarcă PDF</button>
+    </div>
+    <div id="certPreview" aria-live="polite">
+      <div class="cp-title">CERTIFICAT DE FINALIZARE</div>
+      <p style="margin:.4em 0">se acordă elevului/elevei</p>
+      <div class="cp-name" id="cpName">—</div>
+      <p>pentru parcurgerea integrală a cursului<br><strong>🐍⚙️ Python Core — Programare intermediară în Python</strong><br>clasa a X-a · 10 lecții · Volumul 2, seria <em>Python Education</em></p>
+      <p id="cpScore" style="font-weight:600;color:var(--accent)"></p>
+      <p style="font-size:.85rem;color:var(--muted)">prof. Elena Drăgan · <span id="cpDate"></span> · v1.1 — 2026</p>
+    </div>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:.6em">ℹ️ Certificatul atestă parcurgerea acestei resurse educaționale și are rol motivațional; nu constituie un document oficial de certificare a competențelor.</p>
+  </div>
+
+  <h2>📋 Barem de evaluare formativă (pentru profesori)</h2>
+  <p>Fiecare lecție are o activitate practică evaluabilă la clasă. Grilă orientativă (notare 1–10):</p>
+  <div class="table-wrap"><table>
+    <tr><th>Activitate</th><th>Conținut evaluat</th><th>Punctaj propus</th></tr>
+    <tr><td>A1 — Alege structura</td><td>4 situații → structură corectă + justificare</td><td>1 p × 4 + 2 p argumentare = 6 p</td></tr>
+    <tr><td>A2 — Detectorul de date</td><td>3 tipare regex funcționale</td><td>2 p × 3 = 6 p</td></tr>
+    <tr><td>A3 — Trasează recursivitatea</td><td>lanț de apeluri + generalizare + cazul −1</td><td>2 p + 2 p + 2 p = 6 p</td></tr>
+    <tr><td>A4 — Modulul propriu</td><td>2 funcții + import corect + gardul __name__</td><td>2 p + 2 p + 2 p = 6 p</td></tr>
+    <tr><td>A5 — Prima clasă (Carte)</td><td>atribute, metode, limitare la final, independența instanțelor</td><td>1,5 p × 4 = 6 p</td></tr>
+    <tr><td>A6 — Analizează ierarhia</td><td>3 întrebări (ieșire, căutare metode, super)</td><td>2 p × 3 = 6 p</td></tr>
+    <tr><td>A7 — Judecă două variante</td><td>alegere + 2 defecte concrete identificate</td><td>2 p + 2 p × 2 = 6 p</td></tr>
+    <tr><td>A8 — Apărarea proiectului (L9)</td><td>demo funcțional + justificare arhitectură + sarcini de extindere</td><td>vezi rubrica proiectului</td></tr>
+  </table></div>
+
+  <h3>Rubrica de evaluare a proiectului (L9)</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Calificativ</th><th>Criterii</th></tr>
+    <tr><td><strong>Excelent (9–10)</strong></td><td>Aplicația de bază + cel puțin o sarcină ★★/★★★; codul rulează fără crash la intrări invalide; elevul justifică deciziile de proiectare (validare în constructor, structuri alese) și răspunde la întrebări de tip „ce-ar fi dacă”.</td></tr>
+    <tr><td><strong>Bine (7–8)</strong></td><td>Aplicația de bază funcțională, explicată linie cu linie; mici imprecizii terminologice; tratarea erorilor parțială dar prezentă.</td></tr>
+    <tr><td><strong>Suficient (5–6)</strong></td><td>Aplicația rulează pe fluxul fericit, dar cade la intrări invalide; elevul reproduce codul, dar explică superficial rolul claselor/JSON-ului.</td></tr>
+    <tr><td><strong>Insuficient (1–4)</strong></td><td>Aplicația nu rulează sau elevul nu poate explica fragmente esențiale; confuzii fundamentale (self, clasă vs obiect, try/except).</td></tr>
+  </table></div>
+
+  <h3>Itemi propuși pentru evaluare scrisă (suplimentar)</h3>
+  <ul>
+    <li><strong>Itemi obiectivi</strong> (alegere multiplă, A/F): 50% — recunoaștere de concepte (structuri, excepții, sintaxă OOP).</li>
+    <li><strong>Itemi semi-obiectivi</strong> (răspuns scurt, „ce afișează codul”): 30% — înțelegere și aplicare (comprehensions, regex, fluxul try/except, MRO).</li>
+    <li><strong>Itemi subiectivi</strong> (proiectare de clasă, completare de program): 20% — transfer și creare (schițează clasa X cu validare, extinde managerul de contacte cu funcționalitatea Y).</li>
+  </ul>
+
+  <button class="btn btn-primary mark-btn" data-mark="l10">✓ Am parcurs lecția 10</button>
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#l9">← L9</a><a class="btn btn-primary" href="#despre">Despre resursă →</a></div>
+</section>
+
+<!-- ===================== DESPRE ===================== -->
+<section class="page" id="despre">
+  <p class="eyebrow">Documentație · Pentru profesori și evaluatori</p>
+  <h2>Despre resursa „Python Core”</h2>
+  <p class="lead">Resursă educațională deschisă (RED), autonomă, pentru predarea programării intermediare în Python la clasa a X-a — al doilea volum din seria <strong>Python Education</strong>.</p>
+
+  <h3>📋 Metadate</h3>
+  <div class="table-wrap"><table>
+    <tr><th style="width:220px">Câmp</th><th>Valoare</th></tr>
+    <tr><td>Titlu</td><td>Python Core — Programare intermediară în Python</td></tr>
+    <tr><td>Serie</td><td>Python Education · Volumul 2 (continuă <em>Python Start</em>, Volumul 1, cls. a IX-a)</td></tr>
+    <tr><td>Nivel</td><td>Liceu, clasa a X-a (15–16 ani)</td></tr>
+    <tr><td>Disciplină</td><td>Informatică / Tehnologia Informației și a Comunicațiilor</td></tr>
+    <tr><td>Autor</td><td>prof. Elena Drăgan</td></tr>
+    <tr><td>Versiune</td><td>1.1 — iunie 2026</td></tr>
+    <tr><td>Format</td><td>HTML5 autonom (un singur fișier, fără server, fără instalare)</td></tr>
+    <tr><td>Limbă</td><td>Română</td></tr>
+    <tr><td>Licență</td><td>CC BY-NC-SA 4.0 (Atribuire – Necomercial – Distribuire în condiții identice)</td></tr>
+    <tr><td>Durată estimată</td><td>10 lecții × 50 min + proiect (2–3 ore lucru individual)</td></tr>
+  </table></div>
+
+  <h3>🎯 Ținta didactică</h3>
+  <p>Cursul duce elevul de la „știu sintaxa de bază” (nivelul <em>Python Start</em>) la „pot proiecta și apăra un program structurat”: colecții folosite cu discernământ, funcții de ordin superior, organizare în module, programare orientată pe obiecte, tratarea robustă a erorilor și un proiect aplicativ complet, cu date persistente în JSON. Accentul cade pe <strong>decizie</strong> (ce structură aleg și de ce), nu doar pe <strong>reproducere</strong>.</p>
+
+  <h3>🧭 Aliniere curriculară</h3>
+  <ul>
+    <li><strong>Programa școlară de Informatică, clasa a X-a, în vigoare</strong> — aprobată prin OMECI nr. 5099/09.09.2009 (filiera teoretică, profil real, specializarea matematică-informatică) — subprograme, structuri de date, metode de programare; resursa extinde aceste conținuturi în contextul limbajului Python și al paradigmei OOP.</li>
+    <li><strong>Noul curriculum liceal</strong> — programele școlare aprobate prin OMEC nr. 6930/19.12.2025 (M.Of. nr. 4 bis/08.01.2026), care se aplică eșalonat începând cu clasa a IX-a din anul școlar 2026–2027 (ajung la clasa a X-a din 2027–2028); resursa este construită în concordanță cu direcțiile noului curriculum — Python ca limbaj de implementare, accent pe structuri de date, modularizare și gândire critică — rămânând utilizabilă și după tranziția generațională.</li>
+    <li><strong>DigComp 2.2</strong> (Cadrul european al competențelor digitale) — aria 3 <em>Creare de conținut digital</em>, în special 3.4 <em>Programare</em>, nivelurile intermediar–avansat.</li>
+    <li><strong>Profilul absolventului</strong> — gândire algoritmică, rezolvare de probleme, autonomie în învățare (activitățile cu răspuns ascuns încurajează auto-verificarea).</li>
+  </ul>
+
+  <h3>🧩 Competențe specifice vizate</h3>
+  <div class="table-wrap"><table>
+    <tr><th style="width:90px">Cod</th><th>Competența specifică</th><th style="width:110px">Lecții</th></tr>
+    <tr><td>CS 1.1</td><td>Selectarea și utilizarea structurilor de date adecvate (tuple, dicționare, mulțimi) pentru o problemă dată</td><td>L1, L5</td></tr>
+    <tr><td>CS 1.2</td><td>Prelucrarea textului cu metode de șir și expresii regulate</td><td>L2, L5</td></tr>
+    <tr><td>CS 2.1</td><td>Utilizarea funcțiilor de ordin superior și a recursivității în rezolvarea problemelor</td><td>L3, L5</td></tr>
+    <tr><td>CS 2.2</td><td>Organizarea codului în module și utilizarea bibliotecii standard</td><td>L4, L5</td></tr>
+    <tr><td>CS 3.1</td><td>Modelarea entităților din realitate prin clase și obiecte</td><td>L6</td></tr>
+    <tr><td>CS 3.2</td><td>Aplicarea moștenirii și a polimorfismului în ierarhii de clase</td><td>L7</td></tr>
+    <tr><td>CS 4.1</td><td>Tratarea erorilor și depanarea sistematică a programelor</td><td>L8</td></tr>
+    <tr><td>CS 4.2</td><td>Proiectarea și implementarea unei aplicații complete cu date persistente</td><td>L9, L10</td></tr>
+  </table></div>
+
+  <h3>🗺️ Maparea lecțiilor pe competențe și niveluri Bloom</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Lecția</th><th>Competențe</th><th>Nivel Bloom dominant</th><th>Evaluare</th></tr>
+    <tr><td>L1 — Colecții avansate</td><td>CS 1.1</td><td>Apply, Analyze</td><td>A1 formativ</td></tr>
+    <tr><td>L2 — Șiruri și regex</td><td>CS 1.2</td><td>Apply</td><td>A2 formativ</td></tr>
+    <tr><td>L3 — Funcții avansate</td><td>CS 2.1</td><td>Analyze</td><td>A3 formativ</td></tr>
+    <tr><td>L4 — Module și pachete</td><td>CS 2.2</td><td>Apply, Understand</td><td>A4 formativ</td></tr>
+    <tr><td>L5 — Recapitulare</td><td>CS 1.1–2.2</td><td>Evaluate</td><td>Quiz 6 itemi cu feedback</td></tr>
+    <tr><td>L6 — OOP Introducere</td><td>CS 3.1</td><td>Understand, Apply</td><td>A5 formativ</td></tr>
+    <tr><td>L7 — OOP Avansat</td><td>CS 3.2</td><td>Analyze, Evaluate</td><td>A6 formativ</td></tr>
+    <tr><td>L8 — Excepții și debugging</td><td>CS 4.1</td><td>Apply, Evaluate</td><td>A7 formativ</td></tr>
+    <tr><td>L9 — Proiect aplicativ</td><td>CS 4.2</td><td>Create</td><td>Rubrică proiect + A8</td></tr>
+    <tr><td>L10 — Test final</td><td>toate</td><td>sinteză (R1·U1·Ap2·An3·E2·C1)</td><td>10 itemi, prag 70%, certificat</td></tr>
+  </table></div>
+
+  <h3>📊 Rubrica generală a parcursului</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Calificativ</th><th>Descriptor</th></tr>
+    <tr><td><strong>Excelent (90–100%)</strong></td><td>Toate lecțiile parcurse, activitățile rezolvate independent, test final ≥ 9/10, proiect cu sarcini de extindere ★★/★★★.</td></tr>
+    <tr><td><strong>Bine (75–89%)</strong></td><td>Lecțiile parcurse, majoritatea activităților corecte, test final 8/10, proiect funcțional explicat corect.</td></tr>
+    <tr><td><strong>Suficient (60–74%)</strong></td><td>Conținut parcurs cu sprijin, test final 7/10 (pragul de certificare), proiect pe fluxul de bază.</td></tr>
+    <tr><td><strong>În dezvoltare (sub 60%)</strong></td><td>Necesită reluarea lecțiilor L1–L4 sau L6–L8; se recomandă reparcurgerea recapitulării L5 înainte de retestare.</td></tr>
+  </table></div>
+
+  <h3>🌱 Impact educațional așteptat</h3>
+  <ul>
+    <li>Trecerea de la scripturi liniare la <strong>programe structurate</strong> (funcții → module → clase → aplicație).</li>
+    <li>Formarea reflexului de <strong>tratare a erorilor</strong> și de citire a traceback-ului — competență transferabilă în orice limbaj.</li>
+    <li>Experiența unui <strong>proiect complet</strong> cu date persistente, prezentat și apărat — pregătire pentru atestat și pentru proiecte reale.</li>
+  </ul>
+
+  <h3>⚙️ Cerințe tehnice</h3>
+  <ul>
+    <li>Browser modern (Chrome, Edge, Firefox, Safari) — resursa funcționează și offline după prima încărcare a fonturilor.</li>
+    <li>Conexiune la internet doar pentru fonturile Google și biblioteca jsPDF (generarea certificatului); restul conținutului este complet local.</li>
+    <li>Pentru exersarea codului: Python 3.12+ instalat local sau un mediu online (de ex. IDLE, VS Code, replit).</li>
+  </ul>
+
+  <h3>🔒 Confidențialitate</h3>
+  <p>Progresul lecțiilor, scorurile și preferința de temă se salvează exclusiv în <code>localStorage</code>-ul browserului elevului. <strong>Niciun fel de date nu părăsește dispozitivul</strong> — resursa nu folosește cookie-uri, analytics sau servere externe.</p>
+
+  <h3>📚 Bibliografie și resurse</h3>
+  <ul>
+    <li>Python Software Foundation — <em>The Python Tutorial</em> și <em>The Python Standard Library</em>, docs.python.org</li>
+    <li>PEP 8 — <em>Style Guide for Python Code</em>, peps.python.org/pep-0008</li>
+    <li>Real Python — articole despre OOP, regex și tratarea excepțiilor, realpython.com</li>
+    <li>Programa școlară de Informatică pentru clasa a X-a, aprobată prin OMECI nr. 5099/09.09.2009, Ministerul Educației</li>
+    <li>Programele școlare pentru învățământul liceal aprobate prin OMEC nr. 6930/19.12.2025, publicate în M.Of. nr. 4 bis/08.01.2026 (aplicare eșalonată din 2026–2027)</li>
+    <li>jsPDF — bibliotecă JavaScript pentru generarea certificatului PDF, licență MIT, github.com/parallax/jsPDF</li>
+    <li>DigComp 2.2 — <em>The Digital Competence Framework for Citizens</em>, Comisia Europeană, 2022</li>
+  </ul>
+
+  <h3>👩‍🏫 Autor</h3>
+  <p><strong>prof. Elena Drăgan</strong> — seria <em>Python Education</em>: Volumul 1 <em>Python Start</em> (cls. a IX-a), Volumul 2 <em>Python Core</em> (cls. a X-a). Resursă publicată sub licență CC BY-NC-SA 4.0: poate fi folosită și adaptată liber în scop educațional, cu atribuire și fără utilizare comercială.</p>
+
+  <div class="lesson-nav"><a class="btn btn-ghost" href="#l10">← L10</a><a class="btn btn-primary" href="#acasa">Înapoi acasă →</a></div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>🐍⚙️ Python Core</strong> · Volumul 2 — seria Python Education · v1.1 — 2026</p>
+    <p>© prof. Elena Drăgan · Licență CC BY-NC-SA 4.0 · Resursă educațională deschisă</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var LESSONS=["l1","l2","l3","l4","l5","l6","l7","l8","l9","l10"];
+var KEY_PROGRESS="pycore_progress", KEY_THEME="pycore_theme", KEY_SCORE="pycore_final_score";
+
+/* ===== utilitare ===== */
+function safeScroll(el){ try{ if(el&&el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"nearest"}); }catch(e){} }
+/* ===== utilitare stocare ===== */
+function loadProgress(){
+  try{ var p=JSON.parse(localStorage.getItem(KEY_PROGRESS)||"{}"); return (p&&typeof p==="object")?p:{}; }
+  catch(e){ return {}; }
+}
+function saveProgress(p){ try{ localStorage.setItem(KEY_PROGRESS,JSON.stringify(p)); }catch(e){} }
+
+/* ===== temă ===== */
+var themeBtn=document.getElementById("themeBtn");
+function applyTheme(t){ document.documentElement.setAttribute("data-theme",t); }
+var savedTheme=null;
+try{ savedTheme=localStorage.getItem(KEY_THEME); }catch(e){}
+if(savedTheme==="dark"||savedTheme==="light"){ applyTheme(savedTheme); }
+else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){ applyTheme("dark"); }
+if(themeBtn){
+  themeBtn.addEventListener("click",function(){
+    var cur=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+    applyTheme(cur);
+    try{ localStorage.setItem(KEY_THEME,cur); }catch(e){}
+  });
+}
+
+/* ===== navigare hash (SPA) ===== */
+function showSection(){
+  var hash=(location.hash||"#acasa").replace("#","");
+  var target=document.getElementById(hash);
+  if(!target||!target.classList.contains("page")){ hash="acasa"; target=document.getElementById("acasa"); }
+  var pages=document.querySelectorAll("section.page");
+  for(var i=0;i<pages.length;i++){ pages[i].style.display="none"; }
+  if(target){ target.style.display="block"; }
+  window.scrollTo({top:0,behavior:"auto"});
+  closeDD();
+}
+window.addEventListener("hashchange",showSection);
+
+/* ===== dropdown lecții ===== */
+var dd=document.getElementById("lessonsDD"), ddBtn=document.getElementById("lessonsBtn");
+function closeDD(){ if(dd){ dd.classList.remove("open"); ddBtn&&ddBtn.setAttribute("aria-expanded","false"); } }
+if(ddBtn){
+  ddBtn.addEventListener("click",function(ev){
+    ev.stopPropagation();
+    var open=dd.classList.toggle("open");
+    ddBtn.setAttribute("aria-expanded",open?"true":"false");
+  });
+  document.addEventListener("click",function(ev){ if(dd&&!dd.contains(ev.target)) closeDD(); });
+  document.addEventListener("keydown",function(ev){ if(ev.key==="Escape") closeDD(); });
+}
+
+/* ===== progres lecții ===== */
+function updateProgressUI(){
+  var p=loadProgress(), done=0;
+  LESSONS.forEach(function(id){
+    var isDone=!!p[id];
+    if(isDone) done++;
+    var card=document.querySelector('[data-card="'+id+'"]');
+    if(card) card.classList.toggle("done",isDone);
+    var tick=document.querySelector('[data-done="'+id+'"]');
+    if(tick) tick.classList.toggle("show",isDone);
+    var btn=document.querySelector('[data-mark="'+id+'"]');
+    if(btn){
+      btn.classList.toggle("done",isDone);
+      var n=id.replace("l","");
+      btn.textContent=isDone?("✓ Lecția "+n+" — parcursă"):("✓ Am parcurs lecția "+n);
+    }
+  });
+  var pct=Math.round(done/LESSONS.length*100);
+  var fill=document.getElementById("pbarFill"), cnt=document.getElementById("pCount"), per=document.getElementById("pPercent");
+  if(fill) fill.style.width=pct+"%";
+  if(cnt) cnt.textContent=done+" / "+LESSONS.length+" lecții";
+  if(per) per.textContent=pct+"%";
+  var outer=document.getElementById("pbarOuter");
+  if(outer) outer.setAttribute("aria-valuenow",String(pct));
+}
+document.addEventListener("click",function(ev){
+  var btn=ev.target.closest?ev.target.closest(".mark-btn"):null;
+  if(!btn) return;
+  var id=btn.getAttribute("data-mark");
+  if(!id) return;
+  var p=loadProgress();
+  p[id]=!p[id];
+  saveProgress(p);
+  updateProgressUI();
+});
+
+/* ===== motor de quiz ===== */
+function gradeQuiz(containerId){
+  var box=document.getElementById(containerId);
+  if(!box) return null;
+  var qs=box.querySelectorAll(".quiz-q"), correct=0;
+  for(var i=0;i<qs.length;i++){
+    var q=qs[i];
+    var good=q.getAttribute("data-correct");
+    var sel=q.querySelector('input[type="radio"]:checked');
+    var ok=!!sel&&sel.value===good;
+    if(ok) correct++;
+    q.classList.remove("correct","wrong");
+    q.classList.add(ok?"correct":"wrong");
+    var fb=q.querySelector(".fb");
+    if(fb){
+      var parts=(fb.getAttribute("data-fb")||"").split("|");
+      fb.textContent=ok?(parts[0]||"Corect!"):(parts[1]||"Răspuns greșit — recitește lecția.");
+      fb.classList.remove("good","bad");
+      fb.classList.add("show",ok?"good":"bad");
+    }
+  }
+  return {correct:correct,total:qs.length};
+}
+
+/* quiz L5 */
+var btnL5=document.getElementById("checkL5");
+if(btnL5){
+  btnL5.addEventListener("click",function(){
+    var r=gradeQuiz("quizL5");
+    if(!r) return;
+    var sb=document.getElementById("scoreL5");
+    if(sb){
+      var pct=Math.round(r.correct/r.total*100);
+      sb.classList.add("show");
+      sb.classList.remove("pass","fail");
+      sb.classList.add(pct>=70?"pass":"fail");
+      sb.innerHTML="<strong>Rezultat: "+r.correct+" / "+r.total+" ("+pct+"%)</strong><br>"+
+        (pct>=70
+          ?"Foarte bine! Ești pregătit(ă) pentru partea de OOP (L6–L7)."
+          :"Recitește lecțiile la care ai greșit — feedback-ul de sub fiecare item îți arată exact secțiunea.");
+      safeScroll(sb);
+    }
+  });
+}
+
+/* ===== test final + certificat ===== */
+var PASS=7;
+var btnFinal=document.getElementById("checkFinal");
+function showCert(score){
+  var cs=document.getElementById("certSection");
+  if(cs) cs.style.display="block";
+  try{ localStorage.setItem(KEY_SCORE,String(score)); }catch(e){}
+}
+if(btnFinal){
+  btnFinal.addEventListener("click",function(){
+    var r=gradeQuiz("quizFinal");
+    if(!r) return;
+    var sb=document.getElementById("scoreFinal");
+    var pct=Math.round(r.correct/r.total*100);
+    var passed=r.correct>=PASS;
+    if(sb){
+      sb.classList.add("show");
+      sb.classList.remove("pass","fail");
+      sb.classList.add(passed?"pass":"fail");
+      sb.innerHTML="<strong>Scor final: "+r.correct+" / "+r.total+" ("+pct+"%)</strong><br>"+
+        (passed
+          ?"🎉 Felicitări — ai depășit pragul de 70%! Poți genera certificatul mai jos."
+          :"Pragul de promovare este 7/10 (70%). Reia lecțiile la care ai greșit, apoi încearcă din nou — itemii colorați în roșu îți arată unde să te întorci.");
+      safeScroll(sb);
+    }
+    var cs=document.getElementById("certSection");
+    if(passed){ showCert(r.correct); }
+    else if(cs){ cs.style.display="none"; }
+  });
+}
+
+/* dată în format românesc */
+function roDate(){
+  var luni=["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"];
+  var d=new Date();
+  return d.getDate()+" "+luni[d.getMonth()]+" "+d.getFullYear();
+}
+function certData(){
+  var name=(document.getElementById("certName")||{}).value||"";
+  name=name.trim();
+  var score="";
+  try{ score=localStorage.getItem(KEY_SCORE)||""; }catch(e){}
+  return {name:name,score:score,date:roDate()};
+}
+
+var btnPrev=document.getElementById("certPreviewBtn");
+if(btnPrev){
+  btnPrev.addEventListener("click",function(){
+    var d=certData();
+    if(!d.name){ alert("Scrie mai întâi numele tău în câmpul de mai sus."); return; }
+    var pv=document.getElementById("certPreview");
+    var n=document.getElementById("cpName"), s=document.getElementById("cpScore"), dt=document.getElementById("cpDate");
+    if(n) n.textContent=d.name;
+    if(s) s.textContent=d.score?("Rezultat la testul final: "+d.score+" / 10 ("+Math.round(d.score*10)+"%)"):"";
+    if(dt) dt.textContent=d.date;
+    if(pv){ pv.style.display="block"; safeScroll(pv); }
+  });
+}
+
+var btnDl=document.getElementById("certDownloadBtn");
+if(btnDl){
+  btnDl.addEventListener("click",function(){
+    var d=certData();
+    if(!d.name){ alert("Scrie mai întâi numele tău în câmpul de mai sus."); return; }
+    if(!window.jspdf||!window.jspdf.jsPDF){
+      alert("Biblioteca PDF nu s-a încărcat (este nevoie de conexiune la internet). Reîncarcă pagina și încearcă din nou.");
+      return;
+    }
+    var jsPDF=window.jspdf.jsPDF;
+    var doc=new jsPDF({orientation:"landscape",unit:"mm",format:"a4"});
+    var W=297,H=210,cx=W/2;
+    /* fundal + chenare */
+    doc.setFillColor(248,250,252); doc.rect(0,0,W,H,"F");
+    doc.setDrawColor(37,99,235); doc.setLineWidth(2.2); doc.rect(10,10,W-20,H-20);
+    doc.setLineWidth(.5); doc.rect(14,14,W-28,H-28);
+    /* antet */
+    doc.setTextColor(37,99,235);
+    doc.setFont("helvetica","bold"); doc.setFontSize(15);
+    doc.text("PYTHON CORE  ·  Volumul 2 — seria Python Education",cx,32,{align:"center"});
+    doc.setFontSize(32);
+    doc.text("CERTIFICAT DE FINALIZARE",cx,52,{align:"center"});
+    /* corp */
+    doc.setTextColor(40,40,40);
+    doc.setFont("helvetica","normal"); doc.setFontSize(13);
+    doc.text("se acorda elevului/elevei",cx,70,{align:"center"});
+    doc.setFont("helvetica","bold"); doc.setFontSize(28);
+    doc.setTextColor(17,24,39);
+    doc.text(d.name,cx,88,{align:"center"});
+    doc.setDrawColor(37,99,235); doc.setLineWidth(.7);
+    doc.line(cx-70,93,cx+70,93);
+    doc.setFont("helvetica","normal"); doc.setFontSize(13); doc.setTextColor(40,40,40);
+    doc.text("pentru parcurgerea integrala a cursului",cx,106,{align:"center"});
+    doc.setFont("helvetica","bold"); doc.setFontSize(17); doc.setTextColor(37,99,235);
+    doc.text("Python Core — Programare intermediara in Python",cx,117,{align:"center"});
+    doc.setFont("helvetica","normal"); doc.setFontSize(12); doc.setTextColor(40,40,40);
+    doc.text("clasa a X-a  ·  10 lectii  ·  colectii, regex, functii avansate, module, OOP, exceptii, proiect aplicativ",cx,127,{align:"center"});
+    if(d.score){
+      doc.setFont("helvetica","bold"); doc.setFontSize(14);
+      doc.text("Rezultat la evaluarea sumativa: "+d.score+" / 10  ("+Math.round(d.score*10)+"%)",cx,141,{align:"center"});
+    }
+    /* subsol */
+    doc.setFont("helvetica","normal"); doc.setFontSize(11); doc.setTextColor(90,90,90);
+    doc.text("prof. Elena Dragan",60,172,{align:"center"});
+    doc.line(35,165,85,165);
+    doc.text(d.date,W-60,172,{align:"center"});
+    doc.line(W-85,165,W-35,165);
+    doc.setFontSize(9);
+    doc.text("Resursa educationala deschisa  ·  v1.1 — 2026  ·  Licenta CC BY-NC-SA 4.0",cx,188,{align:"center"});
+    doc.setFontSize(7.5);
+    doc.text("Document cu rol motivational, atesta parcurgerea resursei; nu constituie certificare oficiala a competentelor.",cx,194,{align:"center"});
+    doc.save("Certificat_Python_Core_"+d.name.replace(/\s+/g,"_")+".pdf");
+  });
+}
+
+/* ===== inițializare ===== */
+updateProgressUI();
+showSection();
+/* re-afișează certificatul dacă testul a fost deja promovat */
+(function(){
+  var s=null;
+  try{ s=localStorage.getItem(KEY_SCORE); }catch(e){}
+  if(s&&parseInt(s,10)>=PASS){ var cs=document.getElementById("certSection"); if(cs) cs.style.display="block"; }
+})();
+})();
+</script>
+</body>
+</html>
